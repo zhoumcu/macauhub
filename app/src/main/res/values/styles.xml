@@ -6,19 +6,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!-- 设置activity切换动画 -->
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
 
     </style>
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!-- API 14 theme customizations can go here. -->
-        <item name="android:actionBarStyle">@style/my_actionbar_style</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
     </style>
-
-    <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@mipmap/actionbar_bg</item>
+    <style name="MyActionBar"  parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:titleTextStyle">@style/my_actionbar_style</item>
+    </style>
+    <style name="my_actionbar_style" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
     <!-- animation 样式 -->
     <style name="activityAnimation" parent="@android:style/Animation">
@@ -28,4 +32,10 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
     </style>
 
+    <style name="setting_text">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/selector_language</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

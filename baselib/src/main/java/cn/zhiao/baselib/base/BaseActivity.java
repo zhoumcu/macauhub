@@ -314,7 +314,25 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
         if(bundle!=null) intent.putExtras(bundle);
         startActivity(intent);
     }
-
+    /**
+     *
+     * @param bundle
+     * @param cl
+     */
+    public void gtForResult(int requestCode,Class cl){
+        gtForResult(requestCode,null,cl);
+    }
+    /**
+     *
+     * @param bundle
+     * @param cl
+     */
+    public void gtForResult(int requestCode,Bundle bundle,Class cl){
+        Intent intent = new Intent(this,cl);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if(bundle!=null) intent.putExtras(bundle);
+        startActivityForResult(intent,requestCode);
+    }
     /**
      * 设置全局toolbar
      * @param toolbar

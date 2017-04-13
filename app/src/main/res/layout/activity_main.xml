@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     tools:context="com.zhiao.develop.macaumagazine.MainActivity">
     <View
+        android:id="@+id/view"
         android:background="@mipmap/actionbar_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="10dp"/>
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recycler"
-        android:background="@color/colorAccent"
+        android:background="@color/white99"
+        android:layout_below="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </RelativeLayout>
