@@ -6,11 +6,15 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.zhiao.develop.macaumagazine.App;
 import com.zhiao.develop.macaumagazine.R;
+
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.zhiao.baselib.base.BaseActivity;
+import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
 
 /**
  * Created by ymn on 2017/4/12.
@@ -37,7 +41,16 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("zh")){
+            rbZh.setChecked(true);
+        }else if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("en")){
+            rbEn.setChecked(true);
+        }else {
+            rbLg.setChecked(true);
+        }
+        String emailStr = getResources().getString(R.string.email);
+        String emailStr1 = String.format(emailStr,"xxx@qq.com");
+        email.setText(emailStr1);
     }
 
     @Override
@@ -70,10 +83,16 @@ public class SettingActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rb_zh:
+                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang","zh",getContext());
+                switchLanguage(Locale.CHINA,SettingActivity.class);
                 break;
             case R.id.rb_en:
+                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang","en",getContext());
+                switchLanguage(Locale.ENGLISH,SettingActivity.class);
                 break;
             case R.id.rb_lg:
+                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang","pt",getContext());
+                switchLanguage(App.locale,SettingActivity.class);
                 break;
             case R.id.about:
                 break;

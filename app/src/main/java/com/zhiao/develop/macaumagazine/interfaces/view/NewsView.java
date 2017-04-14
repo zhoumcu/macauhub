@@ -12,5 +12,5 @@ import cn.zhiao.baselib.base.IBaseView;
 
 public interface NewsView extends IBaseView{
 
-    void returnData(List<News.ContentBean> newses);
+    void returnData(String status, News news, List<News.ContentBean> newses);
 }

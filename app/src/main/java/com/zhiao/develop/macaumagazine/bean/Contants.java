@@ -16,6 +16,11 @@ public class Contants {
 
     public static final String DETAILS = URL+"article_detail.php?";
 
-    public static String categoryName[] = {"最新","安哥拉","巴西","佛得角","中国","几内亚比绍","澳门","莫桑比克","葡萄牙","圣多美和普林西比","东帝汶"};
-    public static int imageUrl[] = {R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error,R.drawable.default_error};
+    public static int categoryName[] = {R.string.lastest,R.string.angola,R.string.brazil,R.string.caboverde,R.string.china,R.string.guineabissau,R.string.macau,R.string.mozambique,R.string.portugal,R.string.saotomeandprincipe,R.string.timorleste};
+    public static int imageUrl[] = {0,R.drawable.angela,R.drawable.baxi,R.drawable.fodejiao,R.drawable.china,R.drawable.jineiyabishao,R.drawable.macau,R.drawable.moshanbike,R.drawable.putaoya,R.drawable.shengdemei,R.drawable.dongdiwen};
+    public static String[] tags = {"0","20","21","22","23","24","28","19","25","26","27"};
+
+    public static final String LOADMORE = "load";
+    public static final String REFREASH = "refreash";
+    public static final String pageSize = "100";
 }

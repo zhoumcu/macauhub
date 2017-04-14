@@ -19,14 +19,21 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.ButterKnife;
+import cn.zhiao.baselib.app.BaseApplication;
 import cn.zhiao.baselib.custom.CustomConfirmDialog;
 import cn.zhiao.baselib.net.AsyncHttpNetCenter;
+import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
 
 public  abstract class BaseActivity extends AppCompatActivity implements IBaseView {
     public static final String MY_TAG = "BaseActivity";
@@ -343,13 +350,26 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
         }
     }
 
+    public void switchLanguage() {
+        Locale locale;
+        if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("zh")){
+            locale = Locale.CHINA;
+        }else if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("en")){
+            locale = Locale.ENGLISH;
+        }else {
+            locale = BaseApplication.locale;
+        }
+        switchLanguage(locale,null);
+    }
     public void switchLanguage(Locale locale, Class cl) {
         Configuration config = getResources().getConfiguration();// 获得设置对象
         Resources resources = getResources();// 获得res资源对象
         DisplayMetrics dm = resources.getDisplayMetrics();// 获得屏幕参数：主要是分辨率，像素等。
         config.locale = locale; // 简体中文
         resources.updateConfiguration(config, dm);
-        finish();
-        gt(cl);
+        if(cl!=null){
+            finish();
+            gt(cl);
+        }
     }
 }

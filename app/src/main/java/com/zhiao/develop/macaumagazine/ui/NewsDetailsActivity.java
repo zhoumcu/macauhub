@@ -10,6 +10,7 @@ import com.zhiao.develop.macaumagazine.bean.Contants;
 
 import butterknife.Bind;
 import cn.zhiao.baselib.base.BaseActivity;
+import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
 import cn.zhiao.baselib.webViewUtils.ProgressWebView;
 
 /**
@@ -28,7 +29,7 @@ public class NewsDetailsActivity extends BaseActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(Contants.DETAILS+"aid="+aid+"?lang=zh");
+        webView.loadUrl(Contants.DETAILS+"aid="+aid+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
     }
 
     @Override

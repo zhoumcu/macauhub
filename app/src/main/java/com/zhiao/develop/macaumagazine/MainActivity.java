@@ -2,57 +2,81 @@ package com.zhiao.develop.macaumagazine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.zhiao.develop.macaumagazine.adapter.NewsAdapter;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.zhiao.develop.macaumagazine.bean.Contants;
 import com.zhiao.develop.macaumagazine.bean.News;
 import com.zhiao.develop.macaumagazine.interfaces.presenter.NewsPresenterImpl;
 import com.zhiao.develop.macaumagazine.interfaces.view.NewsView;
 import com.zhiao.develop.macaumagazine.ui.MenuActivity;
 import com.zhiao.develop.macaumagazine.ui.NewsDetailsActivity;
+import com.zhiao.develop.macaumagazine.vholder.NewsViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import cn.zhiao.baselib.base.BaseActivity;
+import cn.zhiao.baselib.base.BaseListActivity;
+import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
 
-public class MainActivity extends BaseActivity implements NewsView{
+public class MainActivity extends BaseListActivity<News.ContentBean> implements NewsView, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int REQUESECODE = 1000;
     @Bind(R.id.recycler)
     EasyRecyclerView recycler;
     private NewsPresenterImpl presenter;
-    private NewsAdapter adapter;
     private List<News.ContentBean> newses = new ArrayList<>();
+    private String tags = "23";
+    private int pageId = 1;
+    private News news;
 
     @Override
     public void initView() {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new NewsAdapter(getContext());
-        recycler.setAdapter(adapter);
-        adapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
+        recycler.setAdapter(getDataAdapter());
+        getDataAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
-            public void onItemClickListener(int position) {
+            public void onItemClick(int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("aid", String.valueOf(newses.get(position)));
                 gt(bundle, NewsDetailsActivity.class);
             }
         });
+//        getDataAdapter().setMore(R.layout.more, new RecyclerArrayAdapter.OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+//                pageId++;
+//                if(pageId<news.getTotpage()){
+//                    presenter.getNewsList(Contants.LOADMORE,"998",tags, String.valueOf(pageId),Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
+//                }else{
+//                    pageId=1;
+//                }
+//            }
+//        });
+        recycler.setRefreshListener(this);
     }
 
     @Override
     public void initPresenter() {
         presenter = new NewsPresenterImpl(getContext(),this);
-        presenter.getNewsList("998","23","1","10","zh");
     }
 
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getNewsList(Contants.REFREASH,"998",tags,"1",Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
     }
 
     @Override
@@ -74,12 +98,29 @@ public class MainActivity extends BaseActivity implements NewsView{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if(resultCode==1002&&requestCode==REQUESECODE){
+            tags = (String) data.getExtras().get("tags");
+        }
     }
 
     @Override
-    public void returnData(List<News.ContentBean> newses) {
+    public void returnData(String status, News news, List<News.ContentBean> newses) {
         this.newses = newses;
-        adapter.addAll(newses);
+        this.news = news;
+        if(status.equals(Contants.REFREASH)){
+            getDataAdapter().clear();
+        }
+        getDataAdapter().addAll(newses);
+        getDataAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.getNewsList(Contants.REFREASH,"998",tags,"1",Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
+    }
+
+    @Override
+    public BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        return new NewsViewHolder(parent);
     }
 }

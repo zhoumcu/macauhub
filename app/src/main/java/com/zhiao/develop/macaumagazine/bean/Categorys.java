@@ -8,6 +8,7 @@ package com.zhiao.develop.macaumagazine.bean;
 public class Categorys {
     private int imageUrl;
     private String atitle;
+    private String tags;
 
     public int getImageUrl() {
         return imageUrl;
@@ -23,5 +24,14 @@ public class Categorys {
 
     public void setAtitle(String atitle) {
         this.atitle = atitle;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

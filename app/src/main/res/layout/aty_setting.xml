@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="Lingua"
+            android:text="Língua"
             android:gravity="center"
             android:background="@drawable/selector_language"
             android:button="@null"

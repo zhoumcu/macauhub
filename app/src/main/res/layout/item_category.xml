@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app = "http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="5dp"
     android:id="@+id/ll_head"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="1dp"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -15,9 +15,10 @@
         android:layout_height="wrap_content">
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/icon"
-            app:roundedCornerRadius="50dp"
-            android:layout_width="120dp"
-            android:layout_height="60dp" />
+            app:roundedCornerRadius="10dp"
+            android:scaleType="fitCenter"
+            android:layout_width="80dp"
+            android:layout_height="40dp" />
         <TextView
             android:text="tsetsa"
             android:gravity="right"

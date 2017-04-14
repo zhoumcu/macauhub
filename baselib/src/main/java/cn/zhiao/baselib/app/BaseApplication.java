@@ -40,6 +40,8 @@ public class BaseApplication extends Application {
      */
     public static float screenDensity;
 
+    public static Locale locale;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -49,6 +51,7 @@ public class BaseApplication extends Application {
         Fresco.initialize(this);
         initImageLoader();
         initScreenSize();
+        initLangure();
     }
 
     /**
@@ -126,4 +129,11 @@ public class BaseApplication extends Application {
         screenDensity = curMetrics.density;
     }
 
+    private void initLangure(){
+        for (int i = 0; i< Locale.getAvailableLocales().length; i++){
+            if(Locale.getAvailableLocales()[i].toString().equals("pt")){
+                locale = Locale.getAvailableLocales()[i];
+            }
+        }
+    }
 }

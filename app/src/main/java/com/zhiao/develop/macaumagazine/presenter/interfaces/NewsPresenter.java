@@ -7,5 +7,5 @@ package com.zhiao.develop.macaumagazine.presenter.interfaces;
  */
 
 public interface NewsPresenter {
-    void getNewsList(String cid,String tags,String pageId,String catchnum,String lan);
+    void getNewsList( String status,String cid,String tags,String pageId,String catchnum,String lan);
 }
