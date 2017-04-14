@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">MacauHub</string>
+	<string name="about">About</string>
+	<string name="used">Rules of use</string>
+	<string name="disclaimer">Disclaimer</string>
+	<string name="contactme">Contact Us</string>
+	<string name="email">E-mail：%1$s</string>
+	<string name="phone">Tekephone：%1$s</string>
+	<string name="fax">Fax：%1$s</string>
+	<string name="address">Address: \n %1$s </string>
+	<string name="homesite">Home</string>
+	<string name="softversion">Software Version</string>
+	<string name="version">Version：%1$s</string>
+	<string name="lastest">Lastest</string>
+	<string name="angola">Angola</string>
+	<string name="brazil">Brazil</string>
+	<string name="caboverde">Cabo Verde</string>
+	<string name="china">China</string>
+	<string name="guineabissau">Guinea Bissau</string>
+	<string name="macau">Macau</string>
+	<string name="mozambique">Mozambique</string>
+	<string name="portugal">Portugal</string>
+	<string name="saotomeandprincipe">Sao Tome and Principe</string>
+	<string name="timorleste">Tumor-Leste</string>
+	<string name="loading">loading...</string>
+</resources>

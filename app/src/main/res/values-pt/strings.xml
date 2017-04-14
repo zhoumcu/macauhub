@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">MacauHub</string>
+	<string name="about">Configurações</string>
+	<string name="used">Regras de utilização</string>
+	<string name="disclaimer">Endereço</string>
+	<string name="contactme">联系我们</string>
+	<string name="email">电邮:%1$s</string>
+	<string name="phone">电话: %1$s</string>
+	<string name="fax">传真:%1$s</string>
+	<string name="address">Endereço: \n %1$s</string>
+	<string name="homesite">Página Principal</string>
+	<string name="softversion">Versão de software</string>
+	<string name="version">Versão:%1$s</string>
+	<string name="lastest">最新</string>
+	<string name="angola">安哥拉</string>
+	<string name="brazil">巴西</string>
+	<string name="caboverde">佛得角</string>
+	<string name="china">中国</string>
+	<string name="guineabissau">几内亚比绍</string>
+	<string name="macau">澳门</string>
+	<string name="mozambique">莫桑比克</string>
+	<string name="portugal">葡萄牙</string>
+	<string name="saotomeandprincipe">圣多美和普林西比</string>
+	<string name="timorleste">东帝汶</string>
+	<string name="loading">loading...</string>
+</resources>
