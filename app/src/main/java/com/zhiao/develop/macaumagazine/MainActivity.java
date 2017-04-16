@@ -52,7 +52,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
             @Override
             public void onItemClick(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("aid", String.valueOf(newses.get(position).getAID()));
+                bundle.putSerializable("aid", newses.get(position));
                 gt(bundle, NewsDetailsActivity.class);
             }
         });

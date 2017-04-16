@@ -1,5 +1,6 @@
 package com.zhiao.develop.macaumagazine;
 
+import cn.sharesdk.framework.ShareSDK;
 import cn.zhiao.baselib.app.BaseApplication;
 
 /**
@@ -13,5 +14,6 @@ public class App extends BaseApplication{
     @Override
     public void onCreate() {
         super.onCreate();
+        ShareSDK.initSDK(this);
     }
 }

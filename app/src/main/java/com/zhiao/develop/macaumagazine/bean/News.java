@@ -2,12 +2,13 @@ package com.zhiao.develop.macaumagazine.bean;
 
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ymn on 2017/4/13.
  */
-public class News {
+public class News  implements Serializable{
 
     /**
      * states : 0
@@ -96,7 +97,7 @@ public class News {
         this.content = content;
     }
 
-    public static class ContentBean {
+    public static class ContentBean implements Serializable{
         private String aID;
         private String atitle;
         private String adesc;
