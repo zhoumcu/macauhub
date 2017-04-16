@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zhiao.develop.macaumagazine.MainActivity">
+    tools:context=".MainActivity">
     <View
         android:id="@+id/view"
         android:background="@mipmap/actionbar_bg"
