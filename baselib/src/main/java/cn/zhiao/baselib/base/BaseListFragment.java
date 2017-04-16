@@ -10,8 +10,12 @@ import java.util.List;
 
 public abstract class BaseListFragment<M> extends BaseFragment implements IBaseView {
 
-    public DataAdapter getDataAdapter(){
-        return new DataAdapter(getContext());
+    private BaseListFragment.DataAdapter mAdapter;
+
+    public BaseListFragment.DataAdapter getDataAdapter(){
+        if(mAdapter==null)
+            mAdapter = new BaseListFragment.DataAdapter(getContext());
+        return mAdapter;
     }
 
     public int getViewType1(int type){

@@ -1,79 +1,31 @@
 package com.zhiao.develop.macaumagazine;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
-import com.zhiao.develop.macaumagazine.bean.Contants;
-import com.zhiao.develop.macaumagazine.bean.News;
-import com.zhiao.develop.macaumagazine.interfaces.presenter.NewsPresenterImpl;
-import com.zhiao.develop.macaumagazine.interfaces.view.NewsView;
-import com.zhiao.develop.macaumagazine.ui.MenuActivity;
-import com.zhiao.develop.macaumagazine.ui.NewsDetailsActivity;
-import com.zhiao.develop.macaumagazine.vholder.NewsViewHolder;
+import com.zhiao.develop.macaumagazine.ui.fragment.HomeFragment;
+import com.zhiao.develop.macaumagazine.ui.fragment.MenuFragment;
+import com.zhiao.develop.macaumagazine.ui.fragment.SettingFragment;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.zhiao.baselib.base.BaseActivity;
 
-import butterknife.Bind;
-import cn.zhiao.baselib.base.BaseListActivity;
-import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
-
-public class MainActivity extends BaseListActivity<News.ContentBean> implements NewsView, SwipeRefreshLayout.OnRefreshListener {
-
+public class MainActivity extends BaseActivity {
     private static final int REQUESECODE = 1000;
-    @Bind(R.id.recycler)
-    EasyRecyclerView recycler;
-    private NewsPresenterImpl presenter;
-    private List<News.ContentBean> newses = new ArrayList<>();
-    private String tags = "23";
-    private int pageId = 1;
-    private News news;
+    private boolean isMenu = true;
+    private boolean isClose = false;
+    private boolean isSetting = false;
+    private boolean isShare = false;
 
     @Override
     public void initView() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.alogo);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        recycler.setAdapter(getDataAdapter());
-        getDataAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Bundle bundle = new Bundle();
-                bundle.putString("aid", String.valueOf(newses.get(position).getAID()));
-                gt(bundle, NewsDetailsActivity.class);
-            }
-        });
-//        getDataAdapter().setMore(R.layout.more, new RecyclerArrayAdapter.OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//                pageId++;
-//                if(pageId<news.getTotpage()){
-//                    presenter.getNewsList(Contants.LOADMORE,"998",tags, String.valueOf(pageId),Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
-//                }else{
-//                    pageId=1;
-//                }
-//            }
-//        });
-        recycler.setRefreshListener(this);
-        onRefresh();
+        changeActionBar(0);
     }
 
     @Override
     public void initPresenter() {
-        presenter = new NewsPresenterImpl(getContext(),this);
+
     }
 
     @Override
@@ -88,44 +40,65 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.getItem(0).setVisible(isMenu);
+        menu.getItem(1).setVisible(isClose);
+        menu.getItem(2).setVisible(isSetting);
+        menu.getItem(3).setVisible(isShare);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_menu:
-                gtForResult(REQUESECODE,MenuActivity.class);
+                changeActionBar(1);
+                MenuFragment.jumpIn((AppCompatActivity) getContext());
+                break;
+            case R.id.action_setting:
+                changeActionBar(2);
+                SettingFragment.jumpIn((AppCompatActivity) getContext());
+                break;
+            case R.id.action_close:
+                changeActionBar(1);
+                getSupportFragmentManager().popBackStack();
+                break;
+            case android.R.id.home:
+                getSupportFragmentManager().popBackStack();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==1002&&requestCode==REQUESECODE){
-            tags = (String) data.getExtras().get("tags");
-            onRefresh();
-        }else if(resultCode==1003&&requestCode==REQUESECODE){
-            onRefresh();
+    private void changeActionBar(int style) {
+        ActionBar actionBar = getSupportActionBar();
+        switch (style){
+            case 0:
+                actionBar.setDisplayShowHomeEnabled(true);
+                actionBar.setLogo(R.mipmap.alogo);
+                actionBar.setDisplayUseLogoEnabled(true);
+                actionBar.setDisplayShowTitleEnabled(false);
+                addFragment(R.id.content_container,new HomeFragment());
+                break;
+            case 1:
+                isMenu = false;
+                isSetting = true;
+                isClose = false;
+                actionBar.setDisplayShowHomeEnabled(true);
+                actionBar.setLogo(R.mipmap.alogo);
+                actionBar.setDisplayUseLogoEnabled(true);
+                actionBar.setDisplayShowTitleEnabled(false);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
+                break;
+            case 2:
+                isMenu = false;
+                isSetting = false;
+                isClose = true;
+                actionBar.setTitle(R.string.setting);
+                break;
         }
-    }
-
-    @Override
-    public void returnData(String status, News news, List<News.ContentBean> newses) {
-        this.newses = newses;
-        this.news = news;
-        if(status.equals(Contants.REFREASH)){
-            getDataAdapter().clear();
-        }
-        getDataAdapter().addAll(newses);
-        getDataAdapter().notifyDataSetChanged();
-    }
-
-    @Override
-    public void onRefresh() {
-        presenter.getNewsList(Contants.REFREASH,"998",tags,"1",Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
-    }
-
-    @Override
-    public BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        return new NewsViewHolder(parent);
+        invalidateOptionsMenu();
     }
 }

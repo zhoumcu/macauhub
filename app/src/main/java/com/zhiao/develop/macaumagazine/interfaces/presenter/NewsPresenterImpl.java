@@ -3,7 +3,6 @@ package com.zhiao.develop.macaumagazine.interfaces.presenter;
 
 import android.content.Context;
 
-import com.zhiao.develop.macaumagazine.R;
 import com.zhiao.develop.macaumagazine.bean.Contants;
 import com.zhiao.develop.macaumagazine.bean.News;
 import com.zhiao.develop.macaumagazine.interfaces.model.NewsModelImpl;
@@ -32,7 +31,7 @@ public class NewsPresenterImpl implements NewsPresenter {
 
     @Override
     public void getNewsList(final String status, String cid, String tags, String pageId, String catchnum, String lang) {
-        newsView.showProgress(context.getResources().getString(R.string.loading));
+        //newsView.showProgress(context.getResources().getString(R.string.loading));
         Map<String, String> params = new HashMap<>();
         params.put("cid",cid);
         params.put("tags",tags);
@@ -43,7 +42,7 @@ public class NewsPresenterImpl implements NewsPresenter {
             @Override
             public void onSuccess(String response) {
                 newsView.logE(response);
-                newsView.hideProgress();
+                //newsView.hideProgress();
                 newsView.returnData(status,News.objectFromData(response),News.objectFromData(response).getContent());
             }
         });

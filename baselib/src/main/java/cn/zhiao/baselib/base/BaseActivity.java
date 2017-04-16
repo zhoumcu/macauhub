@@ -361,6 +361,9 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
         }
         switchLanguage(locale,null);
     }
+    public void switchLanguage(Locale locale) {
+        switchLanguage(locale,null);
+    }
     public void switchLanguage(Locale locale, Class cl) {
         Configuration config = getResources().getConfiguration();// 获得设置对象
         Resources resources = getResources();// 获得res资源对象
