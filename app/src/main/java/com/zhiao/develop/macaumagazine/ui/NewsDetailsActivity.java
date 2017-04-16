@@ -19,7 +19,7 @@ import cn.zhiao.baselib.webViewUtils.ProgressWebView;
 public class NewsDetailsActivity extends BaseActivity {
     @Bind(R.id.webView)
     ProgressWebView webView;
-    private String aid;
+    private String aid = "0";
 
     @Override
     public void initView() {
@@ -28,7 +28,6 @@ public class NewsDetailsActivity extends BaseActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
-        webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(Contants.DETAILS+"aid="+aid+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
     }
 

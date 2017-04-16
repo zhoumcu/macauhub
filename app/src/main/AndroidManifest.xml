@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhiao.develop.macaumagazine">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:name=".App"
         android:theme="@style/AppBaseTheme">
         <activity android:name=".ui.SplashingActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +21,11 @@
         </activity>
         <activity android:name=".MainActivity"/>
         <activity android:name=".ui.MenuActivity"/>
-        <activity android:name=".ui.SettingActivity"/>
+        <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.NewsDetailsActivity"/>
+        <activity android:name=".ui.TextActivity"/>
+        <activity android:name=".ui.ImageAcitivity"
+            android:theme="@style/Transparent"/>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.zhiao.develop.macaumagazine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,13 +40,19 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 
     @Override
     public void initView() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.mipmap.alogo);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.setAdapter(getDataAdapter());
         getDataAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("aid", String.valueOf(newses.get(position)));
+                bundle.putString("aid", String.valueOf(newses.get(position).getAID()));
                 gt(bundle, NewsDetailsActivity.class);
             }
         });
@@ -61,6 +68,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 //            }
 //        });
         recycler.setRefreshListener(this);
+        onRefresh();
     }
 
     @Override
@@ -71,12 +79,6 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.getNewsList(Contants.REFREASH,"998",tags,"1",Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
     }
 
     @Override
@@ -100,6 +102,9 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==1002&&requestCode==REQUESECODE){
             tags = (String) data.getExtras().get("tags");
+            onRefresh();
+        }else if(resultCode==1003&&requestCode==REQUESECODE){
+            onRefresh();
         }
     }
 

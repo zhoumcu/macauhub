@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">MacauHub</string>
+    <string name="setting">设置</string>
     <string name="about">关于我们</string>
     <string name="used">使用条款</string>
     <string name="disclaimer">免责声明</string>
     <string name="contactme">联系我们</string>
-    <string name="email">电邮：%1$s</string>
-    <string name="phone">电话：%1$s</string>
-    <string name="fax">传真：%1$s</string>
-    <string name="address">地址：\n %1$s</string>
+    <string name="email">电邮:macaulink@macaulink.com.mo</string>
+    <string name="phone">电话:(853)28355315</string>
+    <string name="fax">传真:(853)28355466</string>
+    <string name="address">地址：\n 殷皇子大马路43-53A 澳门广场10楼1，澳门，中国</string>
     <string name="homesite">主页</string>
     <string name="softversion">软件版本</string>
     <string name="version">版本：%1$s</string>
@@ -24,4 +25,7 @@
     <string name="timorleste">东帝汶</string>
     <string name="loading">加载中...</string>
     <string name="loadmore">加载更多......</string>
+    <string name="ContentTypeAbout">Macauhub 是一个总部在澳门的免费新闻服务中心，以英文、中文和葡语提供“泛珠三角”地区及葡语国家的经济信息。“泛珠三角”位于中华人名共和国南部，包括香港、澳门、周边八个省（福建、江西、广东、海南、湖南、四川、云南、贵州）以及广西自治区。建立 Macauhub 的主要目的是为了让政府、机构、商人了解这些地区的商业潜力和投资潜力。</string>
+    <string name="ContentTypeRules">本网站内所有资料受版权及知识产权保护，并属Macaulink所有。除非另有说明，您可以访问和下载位于http://www.macauhub.com.mo的材料，但仅限于个人及非商业用途。</string>
+    <string name="ContentTypeDisclaimer">本网站发布的所有信息均为诚意发布，仅供一般参考之用。若您对我们网站上的信息作任何回应，您将完全承担自己的风险，我们将不承担任何因使用本网站所引致的损失及伤害。</string>
 </resources>

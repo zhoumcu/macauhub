@@ -2,14 +2,15 @@
 <resources>
 
 	<string name="app_name">MacauHub</string>
+	<string name="setting">setting</string>
 	<string name="about">About</string>
 	<string name="used">Rules of use</string>
 	<string name="disclaimer">Disclaimer</string>
 	<string name="contactme">Contact Us</string>
-	<string name="email">E-mail：%1$s</string>
-	<string name="phone">Tekephone：%1$s</string>
-	<string name="fax">Fax：%1$s</string>
-	<string name="address">Address: \n %1$s </string>
+	<string name="email">E-mail:macaulink@macaulink.com.mo</string>
+	<string name="phone">Tekephone:(853)28355315</string>
+	<string name="fax">Fax:(853)28355466</string>
+	<string name="address">Address: \n Av.Infante D. Henrique, 43-53 A The Macau Square, 10th Floor - I, Macau </string>
 	<string name="homesite">Home</string>
 	<string name="softversion">Software Version</string>
 	<string name="version">Version：%1$s</string>
@@ -24,5 +25,8 @@
 	<string name="portugal">Portugal</string>
 	<string name="saotomeandprincipe">Sao Tome and Principe</string>
 	<string name="timorleste">Tumor-Leste</string>
-	<string name="loading">loading...</string>
+	<string name="loading">Loading...</string>
+	<string name="ContentTypeAbout">Macauhub is a free news service based in Macao, providing economic information in the Pan Pearl River Delta and Portuguese speaking countries in English, Chinese and portuguese. The Pan Pearl River Delta is located in the southern part of the people\'s Republic of China, including Hongkong, Macao, the surrounding eight provinces (Fujian, Jiangxi, Guangdong, Hainan, Hunan, Sichuan, Yunnan, Guizhou) and the autonomous region of. The main purpose of the establishment of Macauhub is to allow the government, institutions, businessmen to understand the business potential and investment potential in these areas.</string>
+	<string name="ContentTypeRules">All information on this site is protected by copyright and intellectual property and is owned by Macaulink. Unless otherwise noted, you can access and download materials located in http://www.macauhub.com.mo, but only for personal and non-commercial use.</string>
+	<string name="ContentTypeDisclaimer">All information posted on this website is for general reference only. If you make any response to the information on our website, you will be fully at your own risk, and we will not be liable for any loss or damage arising from the use of this website.</string>
 </resources>

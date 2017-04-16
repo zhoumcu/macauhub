@@ -12,6 +12,9 @@
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
 
     </style>
+    <style name="NoTitleBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!-- API 14 theme customizations can go here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
@@ -37,5 +40,12 @@
         <item name="android:background">@drawable/selector_language</item>
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Transparent" parent="NoTitleBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 </resources>

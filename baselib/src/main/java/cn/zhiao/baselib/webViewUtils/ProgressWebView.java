@@ -9,6 +9,7 @@ package cn.zhiao.baselib.webViewUtils;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -21,7 +22,7 @@ import cn.zhiao.baselib.R;
  */
 @SuppressWarnings("deprecation")
 public class ProgressWebView extends WebView {
-
+    public static final String APP_CACAHE_DIRNAME = "/webcache";
     private ProgressBar progressbar;
 
     public ProgressWebView(Context context, AttributeSet attrs) {
@@ -34,7 +35,6 @@ public class ProgressWebView extends WebView {
         Drawable drawable = context.getResources().getDrawable(R.drawable.progress_bar_states);
         progressbar.setProgressDrawable(drawable);
         addView(progressbar);
-        // setWebViewClient(new WebViewClient(){});
         setWebChromeClient(new WebChromeClient());
         setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) { //  重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
@@ -45,6 +45,20 @@ public class ProgressWebView extends WebView {
         //是否可以缩放
         getSettings().setSupportZoom(true);
         getSettings().setBuiltInZoomControls(true);
+        getSettings().setJavaScriptEnabled(true);
+        getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
+        // 开启 DOM storage API 功能
+        getSettings().setDomStorageEnabled(true);
+        //开启 database storage API 功能
+        getSettings().setDatabaseEnabled(true);
+        String cacheDirPath = context.getFilesDir().getAbsolutePath()+APP_CACAHE_DIRNAME;
+        //设置数据库缓存路径
+        getSettings().setDatabasePath(cacheDirPath);
+        //设置  Application Caches 缓存目录
+        getSettings().setAppCachePath(cacheDirPath);
+        //开启 Application Caches 功能
+        getSettings().setAppCacheEnabled(true);
     }
 
     public class WebChromeClient extends android.webkit.WebChromeClient {

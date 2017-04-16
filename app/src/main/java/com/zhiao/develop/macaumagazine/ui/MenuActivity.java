@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -77,6 +78,10 @@ public class MenuActivity extends BaseActivity {
             case R.id.action_setting:
                 gt(SettingActivity.class);
                 break;
+            case android.R.id.home:
+                setResult(1003, new Intent(getContext(),MainActivity.class));
+                finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -105,5 +110,26 @@ public class MenuActivity extends BaseActivity {
     }
     @OnClick(R.id.map)
     public void onClick() {
+        Intent intent = new Intent(getContext(), ImageAcitivity.class);
+        intent.putExtra("images", "drawable://R.drawable.splash");//非必须
+        int[] location = new int[2];
+        map.getLocationOnScreen(location);
+        intent.putExtra("locationX", location[0]);//必须
+        intent.putExtra("locationY", location[1]);//必须
+        intent.putExtra("width", map.getWidth());//必须
+        intent.putExtra("height", map.getHeight());//必须
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            //do something...
+            setResult(1003, new Intent(getContext(),MainActivity.class));
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
