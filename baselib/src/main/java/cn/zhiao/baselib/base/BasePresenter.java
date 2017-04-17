@@ -21,7 +21,6 @@ public abstract class BasePresenter {
             view.showToast(showMessage);
             return true;
         }
-
         return false;
     }
 }

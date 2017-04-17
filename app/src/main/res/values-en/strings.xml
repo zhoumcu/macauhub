@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="app_name">MacauHub</string>
-	<string name="setting">setting</string>
+	<string name="setting">Setting</string>
 	<string name="about">About</string>
 	<string name="used">Rules of use</string>
 	<string name="disclaimer">Disclaimer</string>

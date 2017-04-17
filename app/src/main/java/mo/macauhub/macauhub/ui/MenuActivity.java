@@ -2,6 +2,8 @@ package mo.macauhub.macauhub.ui;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
@@ -37,6 +39,14 @@ public class MenuActivity extends BaseActivity {
     ScrollView scrollView;
     private CategoryAdapter adapter;
     private List<Categorys> categoryses = new ArrayList<>();
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            categoryses = (List<Categorys>)  msg.obj;
+            adapter.addAll(categoryses);
+        }
+    };
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -48,6 +58,19 @@ public class MenuActivity extends BaseActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
+        recycler.setLayoutManager(new FullyLinearLayoutManager(getContext()));
+        adapter = new CategoryAdapter(getContext());
+        //recycler.setNestedScrollingEnabled(false);
+        recycler.setAdapter(adapter);
+        adapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("tags",categoryses.get(position).getTags());
+                setResult(1002, intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -87,26 +110,22 @@ public class MenuActivity extends BaseActivity {
     }
     private void initAdapte(){
         categoryses.clear();
-        recycler.setLayoutManager(new FullyLinearLayoutManager(getContext()));
-        for (int i = 0; i < Contants.categoryName.length; i++) {
-            Categorys categorys = new Categorys();
-            categorys.setImageUrl(Contants.imageUrl[i]);
-            categorys.setTags(Contants.tags[i]);
-            categorys.setAtitle(getResources().getString(Contants.categoryName[i]));
-            categoryses.add(categorys);
-        }
-        adapter = new CategoryAdapter(getContext(), categoryses);
-        //recycler.setNestedScrollingEnabled(false);
-        recycler.setAdapter(adapter);
-        adapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+        new Thread(new Runnable() {
             @Override
-            public void onItemClickListener(int position) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                intent.putExtra("tags",categoryses.get(position).getTags());
-                setResult(1002, intent);
-                finish();
+            public void run() {
+                for (int i = 0; i < Contants.categoryName.length; i++) {
+                    Categorys categorys = new Categorys();
+                    categorys.setImageUrl(Contants.imageUrl[i]);
+                    categorys.setTags(Contants.tags[i]);
+                    categorys.setAtitle(getResources().getString(Contants.categoryName[i]));
+                    categoryses.add(categorys);
+                }
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = categoryses;
+                handler.sendMessage(msg);
             }
-        });
+        }).start();
     }
     @OnClick(R.id.map)
     public void onClick() {
@@ -121,10 +140,10 @@ public class MenuActivity extends BaseActivity {
         startActivity(intent);
         overridePendingTransition(0, 0);
     }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getRepeatCount() == 0) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             //do something...
             setResult(1003, new Intent(getContext(),MainActivity.class));
             finish();

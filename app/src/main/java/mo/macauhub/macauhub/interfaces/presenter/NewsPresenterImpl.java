@@ -6,8 +6,9 @@ import android.content.Context;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.zhiao.baselib.base.BasePresenter;
+import cn.zhiao.baselib.net.ResponseCode;
 import cn.zhiao.baselib.net.StringTransactionListener;
-import mo.macauhub.macauhub.R;
 import mo.macauhub.macauhub.bean.Contants;
 import mo.macauhub.macauhub.bean.News;
 import mo.macauhub.macauhub.interfaces.model.NewsModelImpl;
@@ -18,7 +19,7 @@ import mo.macauhub.macauhub.presenter.interfaces.NewsPresenter;
 * Created by Administrator on 2017/04/13
 */
 
-public class NewsPresenterImpl implements NewsPresenter {
+public class NewsPresenterImpl extends BasePresenter implements NewsPresenter {
     private NewsModelImpl model;
     private Context context;
     private NewsView newsView;
@@ -31,7 +32,7 @@ public class NewsPresenterImpl implements NewsPresenter {
 
     @Override
     public void getNewsList(final String status, String cid, String tags, String pageId, String catchnum, String lang) {
-        newsView.showProgress(context.getResources().getString(R.string.loading));
+        //newsView.showProgress(context.getResources().getString(R.string.loading));
         Map<String, String> params = new HashMap<>();
         params.put("cid",cid);
         params.put("tags",tags);
@@ -42,8 +43,25 @@ public class NewsPresenterImpl implements NewsPresenter {
             @Override
             public void onSuccess(String response) {
                 newsView.logE(response);
-                newsView.hideProgress();
-                newsView.returnData(status, News.objectFromData(response),News.objectFromData(response).getContent());
+                //newsView.hideProgress();
+                if(status.equals(Contants.REFREASH)){
+                    newsView.refreash(News.objectFromData(response),News.objectFromData(response).getContent());
+                }else  if(status.equals(Contants.LOADMORE)){
+                   newsView.loadMore(News.objectFromData(response),News.objectFromData(response).getContent());
+                }
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+                super.onFailure(errorCode);
+                switch (errorCode){
+                    case ResponseCode.ERROR_NETWORK:
+                        newsView.getRecycler().showError();
+                        break;
+                    case ResponseCode.ERROR_NETWORK_NOT_AVAILABLE:
+                        newsView.getRecycler().showError();
+                        break;
+                }
             }
         });
     }

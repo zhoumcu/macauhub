@@ -2,22 +2,19 @@ package mo.macauhub.macauhub;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
-import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import cn.zhiao.baselib.base.BaseListActivity;
+import cn.zhiao.baselib.base.ListConfig;
 import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
 import mo.macauhub.macauhub.bean.Contants;
 import mo.macauhub.macauhub.bean.News;
@@ -27,11 +24,9 @@ import mo.macauhub.macauhub.ui.MenuActivity;
 import mo.macauhub.macauhub.ui.NewsDetailsActivity;
 import mo.macauhub.macauhub.vholder.NewsViewHolder;
 
-public class MainActivity extends BaseListActivity<News.ContentBean> implements NewsView, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends BaseListActivity<News.ContentBean> implements NewsView<BaseListActivity.DataAdapter> {
 
     private static final int REQUESECODE = 1000;
-    @Bind(R.id.recycler)
-    EasyRecyclerView recycler;
     private NewsPresenterImpl presenter;
     private List<News.ContentBean> newses = new ArrayList<>();
     private String tags = "23";
@@ -39,16 +34,13 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     private News news;
 
     @Override
-    public void initView() {
+    public void initListView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setLogo(R.mipmap.alogo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-
-        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        recycler.setAdapter(getDataAdapter());
-        getDataAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+        getAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Bundle bundle = new Bundle();
@@ -56,24 +48,22 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
                 gt(bundle, NewsDetailsActivity.class);
             }
         });
-//        getDataAdapter().setMore(R.layout.more, new RecyclerArrayAdapter.OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//                pageId++;
-//                if(pageId<news.getTotpage()){
-//                    presenter.getNewsList(Contants.LOADMORE,"998",tags, String.valueOf(pageId),Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
-//                }else{
-//                    pageId=1;
-//                }
-//            }
-//        });
-        recycler.setRefreshListener(this);
-        onRefresh();
     }
 
     @Override
-    public void initPresenter() {
+    public ListConfig getConfig() {
+        return super.getConfig()
+                .setLoadmoreAble(true)
+                .setRefreshAble(true)
+                .setNoMoreAble(true)
+                .setErrorAble(true)
+                .setStartWithProgress(true)
+                .setErrorTouchToResumeAble(true);
+    }
+    @Override
+    public void initListPresenter() {
         presenter = new NewsPresenterImpl(getContext(),this);
+        onRefresh();
     }
 
     @Override
@@ -109,17 +99,6 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     }
 
     @Override
-    public void returnData(String status, News news, List<News.ContentBean> newses) {
-        this.newses = newses;
-        this.news = news;
-        if(status.equals(Contants.REFREASH)){
-            getDataAdapter().clear();
-        }
-        getDataAdapter().addAll(newses);
-        getDataAdapter().notifyDataSetChanged();
-    }
-
-    @Override
     public void onRefresh() {
         presenter.getNewsList(Contants.REFREASH,"998",tags,"1",Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
     }
@@ -127,5 +106,34 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     @Override
     public BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         return new NewsViewHolder(parent);
+    }
+
+    @Override
+    public void onLoadMore() {
+        pageId++;
+        if(pageId<news.getTotpage()){
+            presenter.getNewsList(Contants.LOADMORE,"998",tags, String.valueOf(pageId),Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
+        }else{
+            getAdapter().stopMore();
+            pageId=1;
+        }
+    }
+
+    @Override
+    public void refreash(News news, List<News.ContentBean> modle) {
+        this.newses = modle;
+        this.news = news;
+        getAdapter().clear();
+        getAdapter().addAll(newses);
+    }
+
+    @Override
+    public void loadMore(News news, List<News.ContentBean> modle) {
+        this.newses = modle;
+        this.news = news;
+        if(newses.size()==0){
+            getAdapter().stopMore();
+        }
+        getAdapter().addAll(newses);
     }
 }

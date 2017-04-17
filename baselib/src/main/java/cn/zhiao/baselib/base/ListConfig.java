@@ -2,6 +2,8 @@ package cn.zhiao.baselib.base;
 
 import android.view.View;
 
+import cn.zhiao.baselib.R;
+
 /**
  * author：Administrator on 2017/3/30 15:27
  * company: xxxx
@@ -27,17 +29,17 @@ public class ListConfig implements Cloneable{
     View mContainerLayoutView;
     int mContainerLayoutRes = 0;
     View mContainerEmptyView;
-//    int mContainerEmptyRes = R.layout.beam_view_list_con_empty;
+    int mContainerEmptyRes = R.layout.beam_view_list_con_empty;
     View mContainerProgressView;
-//    int mContainerProgressRes = R.layout.beam_view_list_con_progress;
+    int mContainerProgressRes = R.layout.beam_view_list_con_progress;
     View mContainerErrorView;
-//    int mContainerErrorRes = R.layout.beam_view_list_con_error;
+    int mContainerErrorRes = R.layout.beam_view_list_con_error;
     View mLoadMoreView;
-//    int mLoadMoreRes = R.layout.beam_view_list_more;
+    int mLoadMoreRes = R.layout.beam_view_list_more;
     View mNoMoreView;
-//    int mNoMoreRes = R.layout.beam_view_list_nomore;
+    int mNoMoreRes = R.layout.beam_view_list_nomore;
     View mErrorView;
-//    int mErrorRes = R.layout.beam_view_list_error;
+    int mErrorRes = R.layout.beam_view_list_error;
 
 
     public ListConfig setContainerLayoutView(View mContainerLayoutView) {
@@ -59,19 +61,19 @@ public class ListConfig implements Cloneable{
         return this;
     }
 
-//    public ListConfig setErrorRes(int mErrorRes) {
-//        this.mErrorRes = mErrorRes;
-//        return this;
-//    }
-//
-//    public ListConfig setErrorTouchToResumeAble(boolean mErrorTouchToResumeAble) {
-//        this.mErrorTouchToResumeAble = mErrorTouchToResumeAble;
-//        if (mErrorTouchToResumeAble && mErrorRes == R.layout.beam_view_list_error)
-//            mErrorRes = R.layout.beam_view_list_error_retry;
-//        else if(!mErrorTouchToResumeAble && mErrorRes == R.layout.beam_view_list_error_retry)
-//            mErrorRes = R.layout.beam_view_list_error;
-//        return this;
-//    }
+    public ListConfig setErrorRes(int mErrorRes) {
+        this.mErrorRes = mErrorRes;
+        return this;
+    }
+
+    public ListConfig setErrorTouchToResumeAble(boolean mErrorTouchToResumeAble) {
+        this.mErrorTouchToResumeAble = mErrorTouchToResumeAble;
+        if (mErrorTouchToResumeAble && mErrorRes == R.layout.beam_view_list_error)
+            mErrorRes = R.layout.beam_view_list_error_retry;
+        else if(!mErrorTouchToResumeAble && mErrorRes == R.layout.beam_view_list_error_retry)
+            mErrorRes = R.layout.beam_view_list_error;
+        return this;
+    }
 
     public ListConfig setRefreshAble(boolean mRefreshAble) {
         this.mRefreshAble = mRefreshAble;
@@ -88,10 +90,10 @@ public class ListConfig implements Cloneable{
         return this;
     }
 
-//    public ListConfig setLoadMoreRes(int mLoadMoreRes) {
-//        this.mLoadMoreRes = mLoadMoreRes;
-//        return this;
-//    }
+    public ListConfig setLoadMoreRes(int mLoadMoreRes) {
+        this.mLoadMoreRes = mLoadMoreRes;
+        return this;
+    }
 
     public ListConfig setNoMoreView(View mNoMoreView) {
         this.mNoMoreView = mNoMoreView;
@@ -102,39 +104,39 @@ public class ListConfig implements Cloneable{
         this.mNoMoreAble = mNoMoreAble;
         return this;
     }
-//    public ListConfig setNoMoreRes(int mMoMoreRes) {
-//        this.mNoMoreRes = mMoMoreRes;
-//        return this;
-//    }
+    public ListConfig setNoMoreRes(int mMoMoreRes) {
+        this.mNoMoreRes = mMoMoreRes;
+        return this;
+    }
 
     public ListConfig setContainerEmptyView(View mContainerEmptyView) {
         this.mContainerEmptyView = mContainerEmptyView;
         return this;
     }
 
-//    public ListConfig setContainerEmptyRes(int mContainerEmptyRes) {
-//        this.mContainerEmptyRes = mContainerEmptyRes;
-//        return this;
-//    }
+    public ListConfig setContainerEmptyRes(int mContainerEmptyRes) {
+        this.mContainerEmptyRes = mContainerEmptyRes;
+        return this;
+    }
 
     public ListConfig setContainerProgressView(View mContainerProgressView) {
         this.mContainerProgressView = mContainerProgressView;
         return this;
     }
 
-//    public ListConfig setContainerProgressRes(int mContainerProgressRes) {
-//        this.mContainerProgressRes = mContainerProgressRes;
-//        return this;
-//    }
+    public ListConfig setContainerProgressRes(int mContainerProgressRes) {
+        this.mContainerProgressRes = mContainerProgressRes;
+        return this;
+    }
 
     public ListConfig setContainerErrorView(View mContainerErrorView) {
         this.mContainerErrorView = mContainerErrorView;
         return this;
     }
-//    public ListConfig setContainerErrorRes(int mContainerErrorRes) {
-//        this.mContainerErrorRes = mContainerErrorRes;
-//        return this;
-//    }
+    public ListConfig setContainerErrorRes(int mContainerErrorRes) {
+        this.mContainerErrorRes = mContainerErrorRes;
+        return this;
+    }
     public ListConfig setContainerProgressAble(boolean mContainerProgressAble) {
         this.mContainerProgressAble = mContainerProgressAble;
         return this;

@@ -75,6 +75,7 @@
             style="@style/setting_text"
             android:background="@color/gray"
             android:text="@string/contactme"
+            android:id="@+id/contantme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
@@ -111,6 +112,7 @@
             style="@style/setting_text"
             android:background="@color/gray"
             android:text="@string/softversion"
+            android:id="@+id/softversion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView

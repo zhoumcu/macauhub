@@ -26,5 +26,5 @@ public class Contants {
 
     public static final String LOADMORE = "load";
     public static final String REFREASH = "refreash";
-    public static final String pageSize = "100";
+    public static final String pageSize = "10";
 }

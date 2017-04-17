@@ -1,0 +1,8 @@
+2017-04-17
+1.添加了BaseListActivity，BaseListFragment
+集成了EasecyclerView 和 DataAdapter
+使用介绍：
+1.1 继承 BaseListActivity<News.ContentBean>
+    public class MainActivity extends BaseListActivity<News.ContentBean> implements NewsView<BaseListActivity.DataAdapter>
+1.2 NewsView
+    public interface NewsView<D> extends IBaseListView<D>

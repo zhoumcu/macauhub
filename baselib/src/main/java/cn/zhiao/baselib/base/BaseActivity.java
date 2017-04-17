@@ -12,6 +12,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,14 +20,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
-
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.ButterKnife;
@@ -41,6 +37,7 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
     private ProgressDialog mProgressDialog;
     FragmentManager fragmentManager;
     public Toolbar toolbar;
+    private ActionBar actionBar;
 
     /**
      * 初始化控件
@@ -323,7 +320,6 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
     }
     /**
      *
-     * @param bundle
      * @param cl
      */
     public void gtForResult(int requestCode,Class cl){
@@ -349,7 +345,16 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
             this.toolbar = toolbar;
         }
     }
-
+    /**
+     * acitionbar
+     *
+     */
+    public ActionBar getAcitonbar(){
+        if(actionBar ==null){
+            actionBar = getSupportActionBar();
+        }
+        return actionBar;
+    }
     public void switchLanguage() {
         Locale locale;
         if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("zh")){
@@ -359,6 +364,9 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
         }else {
             locale = BaseApplication.locale;
         }
+        switchLanguage(locale,null);
+    }
+    public void switchLanguage(Locale locale) {
         switchLanguage(locale,null);
     }
     public void switchLanguage(Locale locale, Class cl) {

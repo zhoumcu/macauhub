@@ -8,8 +8,7 @@ import android.util.Log;
  * 邮箱：13026620809@163.com
  */
 public class L {
-    private L()
-    {
+    private L() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
@@ -18,45 +17,38 @@ public class L {
     private static final String TAG = "wxx";
 
     // 下面四个是默认tag的函数
-    public static void i(String msg)
-    {
+    public static void i(String msg) {
         if (isDebug)
             Log.i(TAG, msg);
     }
 
-    public static void d(String msg)
-    {
+    public static void d(String msg) {
         if (isDebug)
             Log.d(TAG, msg);
     }
 
-    public static void e(String msg)
-    {
+    public static void e(String msg) {
         if (isDebug)
             Log.e(TAG, msg);
     }
 
-    public static void v(String msg)
-    {
+    public static void v(String msg) {
         if (isDebug)
             Log.v(TAG, msg);
     }
 
     // 下面是传入自定义tag的函数
-    public static void i(String tag, String msg)
-    {
+    public static void i(String tag, String msg) {
         if (isDebug)
             Log.i(tag, msg);
     }
 
-    public static void d(String tag, String msg)
-    {
+    public static void d(String tag, String msg) {
         if (isDebug)
             Log.i(tag, msg);
     }
 
-    public static void e(String tag, String msg)
-    {
+    public static void e(String tag, String msg) {
         if (isDebug)
             Log.i(tag, msg);
     }
@@ -68,8 +60,7 @@ public class L {
     }
 
 
-    public static void v(String tag, String msg)
-    {
+    public static void v(String tag, String msg) {
         if (isDebug)
             Log.i(tag, msg);
     }

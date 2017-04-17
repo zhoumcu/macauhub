@@ -29,57 +29,47 @@ public class NumberUtils
 		this.setMobile(mobile);
 	}
 
-	public void setMobile(String mobile)
-	{
-		if (mobile == null)
-		{
+	public void setMobile(String mobile) {
+		if (mobile == null) {
 			return;
 		}
 		/** */
 		/** 第一步判断中国移动 */
-		if (mobile.matches(NumberUtils.mRegMobileStr))
-		{
+		if (mobile.matches(NumberUtils.mRegMobileStr)) {
 			this.mobile = mobile;
 			this.setFacilitatorType(0);
 			this.setLawful(true);
-			if (mobile.matches(NumberUtils.mRegMobile3GStr))
-			{
+			if (mobile.matches(NumberUtils.mRegMobile3GStr)) {
 				this.setIs3G(true);
 			}
 		}
 		/** */
 		/** 第二步判断中国联通 */
-		else if (mobile.matches(NumberUtils.mRegUnicomStr))
-		{
+		else if (mobile.matches(NumberUtils.mRegUnicomStr)) {
 			this.mobile = mobile;
 			this.setFacilitatorType(1);
 			this.setLawful(true);
-			if (mobile.matches(NumberUtils.mRegUnicom3GStr))
-			{
+			if (mobile.matches(NumberUtils.mRegUnicom3GStr)) {
 				this.setIs3G(true);
 			}
 		}
 		/** */
 		/** 第三步判断中国电信 */
-		else if (mobile.matches(NumberUtils.mRegTelecomStr))
-		{
+		else if (mobile.matches(NumberUtils.mRegTelecomStr)) {
 			this.mobile = mobile;
 			this.setFacilitatorType(2);
 			this.setLawful(true);
-			if (mobile.matches(NumberUtils.mRegTelocom3GStr))
-			{
+			if (mobile.matches(NumberUtils.mRegTelocom3GStr)) {
 				this.setIs3G(true);
 			}
 		}
 		/** */
 		/** 第四步判断座机 */
-		if (mobile.matches(NumberUtils.mRegPhoneString))
-		{
+		if (mobile.matches(NumberUtils.mRegPhoneString)) {
 			this.mobile = mobile;
 			this.setFacilitatorType(0);
 			this.setLawful(true);
-			if (mobile.matches(NumberUtils.mRegMobile3GStr))
-			{
+			if (mobile.matches(NumberUtils.mRegMobile3GStr)) {
 				this.setIs3G(true);
 			}
 		}

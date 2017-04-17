@@ -3,7 +3,6 @@ package mo.macauhub.macauhub.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,20 +42,29 @@ public class SettingActivity extends BaseActivity {
     TextView homesite;
     @Bind(R.id.version)
     TextView version;
+    @Bind(R.id.view)
+    View view;
+    @Bind(R.id.about)
+    TextView about;
+    @Bind(R.id.used)
+    TextView used;
+    @Bind(R.id.disclaimer)
+    TextView disclaimer;
+    @Bind(R.id.contantme)
+    TextView contantme;
+    @Bind(R.id.softversion)
+    TextView softversion;
 
     @Override
-    public void initView() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.setting);
-        if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("zh")){
+    public void initView(){
+        if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("zh")) {
             rbZh.setChecked(true);
-        }else if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("en")){
+        } else if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("en")) {
             rbEn.setChecked(true);
-        }else {
+        } else {
             rbLg.setChecked(true);
         }
-        String ver = getResources().getString(R.string.version);
-        version.setText(String.format(ver, BaseApplication.getVersion()));
+        initLang();
     }
 
     @Override
@@ -89,16 +97,19 @@ public class SettingActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rb_zh:
-                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang","zh",getContext());
-                switchLanguage(Locale.CHINA,SettingActivity.class);
+                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang", "zh", getContext());
+                switchLanguage(Locale.CHINA);
+                initLang();
                 break;
             case R.id.rb_en:
-                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang","en",getContext());
-                switchLanguage(Locale.ENGLISH,SettingActivity.class);
+                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang", "en", getContext());
+                switchLanguage(Locale.ENGLISH);
+                initLang();
                 break;
             case R.id.rb_lg:
-                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang","pt",getContext());
-                switchLanguage(App.locale,SettingActivity.class);
+                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang", "pt", getContext());
+                switchLanguage(App.locale);
+                initLang();
                 break;
             case R.id.about:
                 Bundle bundle = new Bundle();
@@ -137,4 +148,21 @@ public class SettingActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void initLang() {
+        getAcitonbar().setTitle(R.string.setting);
+        about.setText(getResources().getString(R.string.about));
+        used.setText(getResources().getString(R.string.used));
+        disclaimer.setText(getResources().getString(R.string.disclaimer));
+        email.setText(getResources().getString(R.string.email));
+        phone.setText(getResources().getString(R.string.phone));
+        fax.setText(getResources().getString(R.string.fax));
+        address.setText(getResources().getString(R.string.address));
+        homesite.setText(getResources().getString(R.string.homesite));
+        contantme.setText(getResources().getString(R.string.contactme));
+        softversion.setText(getResources().getString(R.string.softversion));
+        String ver = getResources().getString(R.string.version);
+        version.setText(String.format(ver, BaseApplication.getVersion()));
+    }
+
 }
