@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">BaseLib</string>
+	<string name="nomore">(* ￣Ω￣) Não há Mais.</string>
+	<string name="loading">Mais de carga...</string>
+	<string name="neterror">Erro de rede, clique em "retry".</string>
+	<string name="netfaile">Erro de rede</string>
+	<string name="nodata">Não há dados</string>
+
+</resources>

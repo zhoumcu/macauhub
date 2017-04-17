@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">BaseLib</string>
+	<string name="nomore">(*￣ω￣) No more data</string>
+	<string name="loading">Loading……</string>
+	<string name="neterror">Network error, click Retry!</string>
+	<string name="netfaile">Network error!</string>
+	<string name="nodata">No data</string>
+
+</resources>
