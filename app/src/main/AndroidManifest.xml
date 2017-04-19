@@ -22,7 +22,8 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".ui.MenuActivity"/>
         <activity android:name=".ui.SettingActivity" />
-        <activity android:name=".ui.NewsDetailsActivity"/>
+        <activity android:name=".ui.NewsDetailsActivity"
+            android:label=""/>
         <activity android:name=".ui.TextActivity"/>
         <activity android:name=".ui.ImageAcitivity"
             android:theme="@style/Transparent"/>

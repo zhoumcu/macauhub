@@ -53,7 +53,7 @@ public class ImageAcitivity extends AppCompatActivity {
         attacher.setZoomTransitionDuration(1000);
         attacher.update();
 //        ImageLoader.getInstance().displayImage(mDatas, imageView);
-        imgPhoto.setImageResource(R.drawable.splash);
+        imgPhoto.setImageResource(R.drawable.map);
         handler.postDelayed(runnable, 100);
     }
 
@@ -61,7 +61,7 @@ public class ImageAcitivity extends AppCompatActivity {
         @Override
         public void run() {
             scale += 0.1f;
-            if (scale < 1.70f) {
+            if (scale < 3.00f) {
                 attacher.setScale(scale, true);
                 attacher.update();
                 handler.postDelayed(runnable, 100);
