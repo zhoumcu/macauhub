@@ -78,6 +78,16 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(!SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals(SharedPrefrecesUtils.getStrFromSharedPrefrences("currlang", getContext()))){
+            SharedPrefrecesUtils.saveStrToSharedPrefrences("currlang", SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()),getContext());
+            finish();
+            gt(MainActivity.class);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_menu:
@@ -94,7 +104,9 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
             tags = (String) data.getExtras().get("tags");
             onRefresh();
         }else if(resultCode==1003&&requestCode==REQUESECODE){
-            onRefresh();
+            //onRefresh();
+            //finish();
+            //gt(MainActivity.class);
         }
     }
 
