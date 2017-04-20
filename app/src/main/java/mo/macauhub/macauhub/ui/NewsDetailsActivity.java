@@ -1,6 +1,5 @@
 package mo.macauhub.macauhub.ui;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +20,7 @@ public class NewsDetailsActivity extends BaseActivity {
     @Bind(R.id.webView)
     ProgressWebView webView;
     private News.ContentBean news ;
-    private String detailUrl;
+    private String detailUrl = "http://www.macauhub.com.mo";
 
     @Override
     public void initView() {
@@ -30,14 +29,14 @@ public class NewsDetailsActivity extends BaseActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
-        detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext());
+        if(news!=null)
+            detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext());
         webView.loadUrl(detailUrl);
     }
 
     @Override
     public void initPresenter() {
-        Bundle bundle = getIntent().getExtras();
-        news = (News.ContentBean) bundle.getSerializable("aid");
+        news = (News.ContentBean) getIntent().getExtras().getSerializable("aid");
     }
 
     @Override

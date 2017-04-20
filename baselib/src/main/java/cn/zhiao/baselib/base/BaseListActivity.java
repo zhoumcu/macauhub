@@ -158,7 +158,7 @@ public  abstract class BaseListActivity<M> extends BaseActivity implements IBase
         return mAdapter;
     }
 
-    public abstract BaseViewHolder<M> getViewHolder(ViewGroup parent, int viewType);
+    public abstract BaseViewHolder getViewHolder(ViewGroup parent, int viewType);
 
     public class DataAdapter extends RecyclerArrayAdapter<M> {
 

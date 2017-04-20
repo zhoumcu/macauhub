@@ -127,6 +127,12 @@ public class SettingActivity extends BaseActivity {
                 gt(bundle2, TextActivity.class);
                 break;
             case R.id.email:
+//                Intent intent1 =new Intent(Intent.ACTION_SENDTO);
+//                String[] stre = email.getText().toString().split("\\:");
+//                intent1.setData(Uri.parse(stre[1].trim()));
+//                intent1.putExtra(Intent.EXTRA_SUBJECT, "这是标题");
+//                intent1.putExtra(Intent.EXTRA_TEXT, "这是内容");
+//                startActivity(intent1);
                 break;
             case R.id.phone:
                 Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -141,7 +147,6 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.homesite:
                 Bundle bundle3 = new Bundle();
-                bundle3.putString("aid", "0");
                 gt(bundle3, NewsDetailsActivity.class);
                 break;
             case R.id.version:

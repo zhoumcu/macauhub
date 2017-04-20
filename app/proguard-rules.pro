@@ -82,3 +82,10 @@
 -keep class com.facebook.**{*;}
 -dontwarn org.apache.**
 -keep class org.apache.**{*;}
+
+#不混淆 demo.Pinyin4jAppletDemo
+-dontwarn net.soureceforge.pinyin4j.**
+-dontwarn demo.**
+#-libraryjars libs/pinyin4j-2.5.0.jar
+-keep class net.sourceforge.pinyin4j.** { *;}
+-keep class demo.** { *;}

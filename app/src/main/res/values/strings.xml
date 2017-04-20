@@ -8,7 +8,7 @@
     <string name="email">电邮:macaulink@macaulink.com.mo</string>
     <string name="phone">电话:(853)28355315</string>
     <string name="fax">传真:(853)28355466</string>
-    <string name="address">地址：\n 殷皇子大马路43-53A 澳门广场10楼1，澳门，中国</string>
+    <string name="address">地址：\n\n殷皇子大马路43-53A 澳门广场10楼1，澳门，中国</string>
     <string name="homesite">主页</string>
     <string name="softversion">软件版本</string>
     <string name="version">版本：%1$s</string>

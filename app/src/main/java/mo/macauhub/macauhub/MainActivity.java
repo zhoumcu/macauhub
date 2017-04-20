@@ -29,7 +29,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     private static final int REQUESECODE = 1000;
     private NewsPresenterImpl presenter;
     private List<News.ContentBean> newses = new ArrayList<>();
-    private String tags = "23";
+    private String tags = "0";
     private int pageId = 1;
     private News news;
 
@@ -123,7 +123,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     @Override
     public void onLoadMore() {
         pageId++;
-        if(pageId<news.getTotpage()){
+        if(pageId<=news.getTotpage()){
             presenter.getNewsList(Contants.LOADMORE,"998",tags, String.valueOf(pageId),Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
         }else{
             getAdapter().stopMore();
@@ -141,11 +141,12 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 
     @Override
     public void loadMore(News news, List<News.ContentBean> modle) {
-        this.newses = modle;
+        newses.addAll(modle);
         this.news = news;
         if(newses.size()==0){
             getAdapter().stopMore();
         }
+        getAdapter().clear();
         getAdapter().addAll(newses);
     }
 }

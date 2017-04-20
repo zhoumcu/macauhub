@@ -37,7 +37,8 @@ public class NewsViewHolder extends BaseViewHolder<News.ContentBean> {
     @Override
     public void setData(News.ContentBean news) {
         super.setData(news);
-        icon.setImageURI(Uri.parse(news.getThemeImg()));
+        if(news.getThemeImg()!=null)
+            icon.setImageURI(Uri.parse(news.getThemeImg()));
         title.setText(news.getAtitle());
         tvDate.setText(news.getPubdate());
     }
