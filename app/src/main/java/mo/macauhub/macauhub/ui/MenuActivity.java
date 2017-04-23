@@ -5,12 +5,11 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
 
@@ -35,8 +34,9 @@ public class MenuActivity extends BaseActivity {
     ImageView map;
     @Bind(R.id.recycler)
     EasyRecyclerView recycler;
-    @Bind(R.id.scrollView)
-    ScrollView scrollView;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
     private CategoryAdapter adapter;
     private List<Categorys> categoryses = new ArrayList<>();
     private Handler handler = new Handler(){
@@ -51,13 +51,9 @@ public class MenuActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initView() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.alogo);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
+        toolbar.setNavigationIcon(R.mipmap.arrow);
+        setSupportActionBar(toolbar);
+
         recycler.setLayoutManager(new FullyLinearLayoutManager(getContext()));
         adapter = new CategoryAdapter(getContext());
         //recycler.setNestedScrollingEnabled(false);
@@ -89,18 +85,18 @@ public class MenuActivity extends BaseActivity {
         return R.layout.aty_menu;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.info_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.info_menu, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_setting:
-                gt(SettingActivity.class);
-                break;
+//            case R.id.action_setting:
+//                gt(SettingActivity.class);
+//                break;
             case android.R.id.home:
                 setResult(1003, new Intent(getContext(),MainActivity.class));
                 finish();
@@ -150,5 +146,8 @@ public class MenuActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void logoBack(View v){
+        finish();
     }
 }

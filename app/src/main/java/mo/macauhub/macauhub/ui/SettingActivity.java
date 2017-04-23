@@ -3,8 +3,7 @@ package mo.macauhub.macauhub.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -54,9 +53,14 @@ public class SettingActivity extends BaseActivity {
     TextView contantme;
     @Bind(R.id.softversion)
     TextView softversion;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     public void initView(){
+        toolbar.setNavigationIcon(R.mipmap.arrow);
+        setSupportActionBar(toolbar);
+
         if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("zh")) {
             rbZh.setChecked(true);
         } else if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("en")) {
@@ -77,21 +81,21 @@ public class SettingActivity extends BaseActivity {
         return R.layout.aty_setting;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.info_close, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_close:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.info_close, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.action_close:
+//                finish();
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @OnClick({R.id.rb_zh, R.id.rb_en, R.id.rb_lg, R.id.about, R.id.used, R.id.disclaimer, R.id.email, R.id.phone, R.id.fax, R.id.address, R.id.homesite, R.id.version})
     public void onClick(View view) {
@@ -155,7 +159,13 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void initLang() {
-        getAcitonbar().setTitle(R.string.setting);
+        //getAcitonbar().setTitle(R.string.setting);
+//        getAcitonbar().setDisplayShowHomeEnabled(true);
+//        getAcitonbar().setLogo(R.mipmap.alogo);
+//        getAcitonbar().setDisplayUseLogoEnabled(true);
+//        getAcitonbar().setDisplayShowTitleEnabled(false);
+//        getAcitonbar().setDisplayHomeAsUpEnabled(true);
+//        getAcitonbar().setHomeAsUpIndicator(R.mipmap.arrow);
         about.setText(getResources().getString(R.string.about));
         used.setText(getResources().getString(R.string.used));
         disclaimer.setText(getResources().getString(R.string.disclaimer));
@@ -170,4 +180,7 @@ public class SettingActivity extends BaseActivity {
         version.setText(String.format(ver, BaseApplication.getVersion()));
     }
 
+    public void logoBack(View v){
+        finish();
+    }
 }

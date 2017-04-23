@@ -3,8 +3,10 @@ package mo.macauhub.macauhub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -13,6 +15,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import cn.zhiao.baselib.base.BaseListActivity;
 import cn.zhiao.baselib.base.ListConfig;
 import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
@@ -22,11 +25,14 @@ import mo.macauhub.macauhub.interfaces.presenter.NewsPresenterImpl;
 import mo.macauhub.macauhub.interfaces.view.NewsView;
 import mo.macauhub.macauhub.ui.MenuActivity;
 import mo.macauhub.macauhub.ui.NewsDetailsActivity;
+import mo.macauhub.macauhub.ui.SettingActivity;
 import mo.macauhub.macauhub.vholder.NewsViewHolder;
 
 public class MainActivity extends BaseListActivity<News.ContentBean> implements NewsView<BaseListActivity.DataAdapter> {
 
     private static final int REQUESECODE = 1000;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     private NewsPresenterImpl presenter;
     private List<News.ContentBean> newses = new ArrayList<>();
     private String tags = "0";
@@ -35,11 +41,20 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 
     @Override
     public void initListView() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gt(SettingActivity.class);
+            }
+        });
+        toolbar.setNavigationIcon(R.mipmap.setting);
+        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.alogo);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setHomeButtonEnabled(false); //设置返回键可用
+//        actionBar.setDisplayShowHomeEnabled(false);
+//        actionBar.setLogo(R.mipmap.alogo);
+//        actionBar.setDisplayUseLogoEnabled(false);
+//        actionBar.setDisplayShowTitleEnabled(false);
         getAdapter().setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -60,9 +75,10 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
                 .setStartWithProgress(true)
                 .setErrorTouchToResumeAble(true);
     }
+
     @Override
     public void initListPresenter() {
-        presenter = new NewsPresenterImpl(getContext(),this);
+        presenter = new NewsPresenterImpl(getContext(), this);
         onRefresh();
     }
 
@@ -80,8 +96,8 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     @Override
     protected void onResume() {
         super.onResume();
-        if(!SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals(SharedPrefrecesUtils.getStrFromSharedPrefrences("currlang", getContext()))){
-            SharedPrefrecesUtils.saveStrToSharedPrefrences("currlang", SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()),getContext());
+        if (!SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals(SharedPrefrecesUtils.getStrFromSharedPrefrences("currlang", getContext()))) {
+            SharedPrefrecesUtils.saveStrToSharedPrefrences("currlang", SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()), getContext());
             finish();
             gt(MainActivity.class);
         }
@@ -91,7 +107,9 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_menu:
-                gtForResult(REQUESECODE,MenuActivity.class);
+                gtForResult(REQUESECODE, MenuActivity.class);
+                break;
+            case android.R.id.home:
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -100,10 +118,10 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==1002&&requestCode==REQUESECODE){
+        if (resultCode == 1002 && requestCode == REQUESECODE) {
             tags = (String) data.getExtras().get("tags");
             onRefresh();
-        }else if(resultCode==1003&&requestCode==REQUESECODE){
+        } else if (resultCode == 1003 && requestCode == REQUESECODE) {
             //onRefresh();
             //finish();
             //gt(MainActivity.class);
@@ -112,7 +130,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 
     @Override
     public void onRefresh() {
-        presenter.getNewsList(Contants.REFREASH,"998",tags,"1",Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
+        presenter.getNewsList(Contants.REFREASH, "998", tags, "1", Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
     }
 
     @Override
@@ -123,11 +141,11 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     @Override
     public void onLoadMore() {
         pageId++;
-        if(pageId<=news.getTotpage()){
-            presenter.getNewsList(Contants.LOADMORE,"998",tags, String.valueOf(pageId),Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()));
-        }else{
+        if (pageId <= news.getTotpage()) {
+            presenter.getNewsList(Contants.LOADMORE, "998", tags, String.valueOf(pageId), Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+        } else {
             getAdapter().stopMore();
-            pageId=1;
+            pageId = 1;
         }
     }
 
@@ -143,10 +161,14 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     public void loadMore(News news, List<News.ContentBean> modle) {
         newses.addAll(modle);
         this.news = news;
-        if(newses.size()==0){
+        if (newses.size() == 0) {
             getAdapter().stopMore();
         }
         getAdapter().clear();
         getAdapter().addAll(newses);
+    }
+
+    public void logoBack(View v){
+
     }
 }
