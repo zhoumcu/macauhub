@@ -24,8 +24,9 @@
             android:label=""/>
         <activity android:name=".ui.SettingActivity"
             android:label=""/>
+        <activity android:name=".ui.CommActivity"
+            android:label=""/>
         <activity android:name=".ui.NewsDetailsActivity"
-            android:theme="@style/AppBaseTheme"
             android:label=""/>
         <activity android:name=".ui.TextActivity"/>
         <activity android:name=".ui.ImageAcitivity"

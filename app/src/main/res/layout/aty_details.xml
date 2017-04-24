@@ -3,11 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <View
-        android:id="@+id/view"
-        android:background="@mipmap/actionbar_bg"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
 
     <cn.zhiao.baselib.webViewUtils.ProgressWebView
         android:id="@+id/webView"

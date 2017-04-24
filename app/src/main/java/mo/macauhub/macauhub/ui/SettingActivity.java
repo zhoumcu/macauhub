@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -60,7 +61,6 @@ public class SettingActivity extends BaseActivity {
     public void initView(){
         toolbar.setNavigationIcon(R.mipmap.arrow);
         setSupportActionBar(toolbar);
-
         if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("zh")) {
             rbZh.setChecked(true);
         } else if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("en")) {
@@ -87,17 +87,17 @@ public class SettingActivity extends BaseActivity {
 //        return true;
 //    }
 //
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_close:
-//                finish();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-    @OnClick({R.id.rb_zh, R.id.rb_en, R.id.rb_lg, R.id.about, R.id.used, R.id.disclaimer, R.id.email, R.id.phone, R.id.fax, R.id.address, R.id.homesite, R.id.version})
+    @OnClick({R.id.contantme,R.id.rb_zh, R.id.rb_en, R.id.rb_lg, R.id.about, R.id.used, R.id.disclaimer, R.id.email, R.id.phone, R.id.fax, R.id.address, R.id.homesite, R.id.version})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rb_zh:
@@ -117,18 +117,18 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.about:
                 Bundle bundle = new Bundle();
-                bundle.putString(Contants.TEXT, getResources().getString(R.string.ContentTypeAbout));
-                gt(bundle, TextActivity.class);
+                bundle.putString(Contants.URL_PARAM, Contants.ABOUT+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                gt(bundle, CommActivity.class);
                 break;
             case R.id.used:
                 Bundle bundle1 = new Bundle();
-                bundle1.putString(Contants.TEXT, getResources().getString(R.string.ContentTypeRules));
-                gt(bundle1, TextActivity.class);
+                bundle1.putString(Contants.URL_PARAM, Contants.RULES+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                gt(bundle1, CommActivity.class);
                 break;
             case R.id.disclaimer:
                 Bundle bundle2 = new Bundle();
-                bundle2.putString(Contants.TEXT, getResources().getString(R.string.ContentTypeDisclaimer));
-                gt(bundle2, TextActivity.class);
+                bundle2.putString(Contants.URL_PARAM, Contants.DISC+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                gt(bundle2, CommActivity.class);
                 break;
             case R.id.email:
 //                Intent intent1 =new Intent(Intent.ACTION_SENDTO);
@@ -154,6 +154,11 @@ public class SettingActivity extends BaseActivity {
                 gt(bundle3, NewsDetailsActivity.class);
                 break;
             case R.id.version:
+                break;
+            case R.id.contantme:
+                Bundle bundle4 = new Bundle();
+                bundle4.putString(Contants.URL_PARAM, Contants.CONTACT+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                gt(bundle4, CommActivity.class);
                 break;
         }
     }

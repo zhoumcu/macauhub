@@ -2,7 +2,6 @@ package mo.macauhub.macauhub;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,16 +40,10 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 
     @Override
     public void initListView() {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gt(SettingActivity.class);
-            }
-        });
         toolbar.setNavigationIcon(R.mipmap.setting);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(false); //设置返回键可用
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setHomeButtonEnabled(false); //设置返回键可用
 //        actionBar.setDisplayShowHomeEnabled(false);
 //        actionBar.setLogo(R.mipmap.alogo);
 //        actionBar.setDisplayUseLogoEnabled(false);
@@ -110,7 +103,8 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
                 gtForResult(REQUESECODE, MenuActivity.class);
                 break;
             case android.R.id.home:
-                break;
+                gt(SettingActivity.class);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -171,4 +165,5 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     public void logoBack(View v){
 
     }
+
 }

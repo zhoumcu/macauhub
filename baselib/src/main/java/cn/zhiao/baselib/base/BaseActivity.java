@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -355,6 +356,18 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
         }
         return actionBar;
     }
+
+    /**
+     * 关闭软键盘
+     */
+    private void closeKeyboard() {
+        View view = getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     public void switchLanguage() {
         Locale locale;
         if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("zh")){

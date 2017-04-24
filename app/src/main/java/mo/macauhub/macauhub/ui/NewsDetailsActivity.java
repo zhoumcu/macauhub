@@ -1,8 +1,9 @@
 package mo.macauhub.macauhub.ui;
 
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import butterknife.Bind;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -19,16 +20,20 @@ import mo.macauhub.macauhub.bean.News;
 public class NewsDetailsActivity extends BaseActivity {
     @Bind(R.id.webView)
     ProgressWebView webView;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     private News.ContentBean news ;
     private String detailUrl = "http://www.macauhub.com.mo";
 
     @Override
     public void initView() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
+        toolbar.setNavigationIcon(R.mipmap.arrow);
+        setSupportActionBar(toolbar);
         if(news!=null)
             detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext());
         webView.loadUrl(detailUrl);
@@ -90,5 +95,8 @@ public class NewsDetailsActivity extends BaseActivity {
         oks.setSiteUrl("http://sharesdk.cn");
         // 启动分享GUI
         oks.show(this);
+    }
+    public void logoBack(View v){
+        finish();
     }
 }

@@ -16,7 +16,7 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/icon"
             app:roundedCornerRadius="10dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:layout_width="60dp"
             android:layout_height="40dp" />
         <TextView
