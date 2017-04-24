@@ -24,9 +24,9 @@ public class Contants {
     public static final String TEXT = "text";
     public static final String URL_PARAM = "url_param";
 
-    public static int categoryName[] = {R.string.lastest, R.string.angola,R.string.brazil,R.string.caboverde,R.string.china,R.string.guineabissau,R.string.macau,R.string.mozambique,R.string.portugal,R.string.saotomeandprincipe,R.string.timorleste};
-    public static int imageUrl[] = {0,R.drawable.angela,R.drawable.baxi,R.drawable.fodejiao,R.drawable.china,R.drawable.jineiyabishao,R.drawable.macau,R.drawable.moshanbike,R.drawable.putaoya,R.drawable.shengdemei,R.drawable.dongdiwen};
-    public static String[] tags = {"0","20","21","22","23","24","28","19","25","26","27"};
+    public static int categoryName[] = {R.string.lastest, R.string.features,R.string.angola,R.string.brazil,R.string.caboverde,R.string.china,R.string.guineabissau,R.string.macau,R.string.mozambique,R.string.portugal,R.string.saotomeandprincipe,R.string.timorleste};
+    public static int imageUrl[] = {0,0,R.drawable.angela,R.drawable.baxi,R.drawable.fodejiao,R.drawable.china,R.drawable.jineiyabishao,R.drawable.macau,R.drawable.moshanbike,R.drawable.putaoya,R.drawable.shengdemei,R.drawable.dongdiwen};
+    public static String[] tags = {"0","997","20","21","22","23","24","28","19","25","26","27"};
 
     public static final String LOADMORE = "load";
     public static final String REFREASH = "refreash";
