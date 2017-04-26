@@ -1,6 +1,7 @@
 package mo.macauhub.macauhub.ui;
 
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,8 +35,10 @@ public class NewsDetailsActivity extends BaseActivity {
 //        actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
         toolbar.setNavigationIcon(R.mipmap.arrow);
         setSupportActionBar(toolbar);
+        TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        String szImei = TelephonyMgr.getDeviceId();
         if(news!=null)
-            detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext());
+            detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext())+"&imei="+szImei;
         webView.loadUrl(detailUrl);
     }
 
