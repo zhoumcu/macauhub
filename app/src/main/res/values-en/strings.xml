@@ -4,7 +4,7 @@
 	<string name="app_name">MacauHub</string>
 	<string name="setting">Settings</string>
 	<string name="about">About</string>
-	<string name="used">Rules of use</string>
+	<string name="used">Terms</string>
 	<string name="disclaimer">Disclaimer</string>
 	<string name="contactme">Contact Us</string>
 	<string name="email">E-mail:macaulink@macaulink.com.mo</string>
@@ -15,6 +15,7 @@
 	<string name="softversion">Software Version</string>
 	<string name="version">Version：%1$s</string>
 	<string name="lastest">Latest news</string>
+	<string name="features">Features</string>
 	<string name="angola">Angola</string>
 	<string name="brazil">Brazil</string>
 	<string name="caboverde">Cabo Verde</string>
