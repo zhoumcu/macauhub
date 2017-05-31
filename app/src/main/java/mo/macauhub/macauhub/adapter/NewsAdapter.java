@@ -3,6 +3,7 @@ package mo.macauhub.macauhub.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.icon.setImageURI(Uri.parse(news.get(position).getThemeImg()));
+        if(TextUtils.isEmpty(news.get(position).getThemeImg())||news.get(position).getThemeImg().equals("")){
+            holder.icon.setVisibility(View.GONE);
+        }else {
+            holder.icon.setVisibility(View.VISIBLE);
+            holder.icon.setImageURI(Uri.parse(news.get(position).getThemeImg()));
+        }
         holder.title.setText(news.get(position).getAtitle());
         holder.tvDate.setText(news.get(position).getPubdate());
         holder.llHead.setOnClickListener(new View.OnClickListener() {

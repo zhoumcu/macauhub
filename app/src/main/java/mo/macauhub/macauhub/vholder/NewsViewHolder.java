@@ -1,6 +1,8 @@
 package mo.macauhub.macauhub.vholder;
 
 import android.net.Uri;
+import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,8 +39,12 @@ public class NewsViewHolder extends BaseViewHolder<News.ContentBean> {
     @Override
     public void setData(News.ContentBean news) {
         super.setData(news);
-        if(news.getThemeImg()!=null)
+        if(TextUtils.isEmpty(news.getThemeImg())||news.getThemeImg().equals("")){
+            icon.setVisibility(View.GONE);
+        }else {
+            icon.setVisibility(View.VISIBLE);
             icon.setImageURI(Uri.parse(news.getThemeImg()));
+        }
         title.setText(news.getAtitle());
         tvDate.setText(news.getPubdate());
     }

@@ -40,7 +40,11 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 
     @Override
     public void initListView() {
-        toolbar.setNavigationIcon(R.mipmap.setting);
+        if(tags.equals("0")){
+            toolbar.setNavigationIcon(R.mipmap.setting);
+        }else {
+            toolbar.setNavigationIcon(R.mipmap.arrow);
+        }
         setSupportActionBar(toolbar);
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setHomeButtonEnabled(false); //设置返回键可用
@@ -103,7 +107,14 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
                 gtForResult(REQUESECODE, MenuActivity.class);
                 break;
             case android.R.id.home:
-                gt(SettingActivity.class);
+                if(tags.equals("0")){
+                    gt(SettingActivity.class);
+                }else {
+                    tags = "0";
+                    toolbar.setNavigationIcon(R.mipmap.setting);
+                    setSupportActionBar(toolbar);
+                    onRefresh();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -114,6 +125,13 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1002 && requestCode == REQUESECODE) {
             tags = (String) data.getExtras().get("tags");
+            if(!tags.equals("0")){
+                toolbar.setNavigationIcon(R.mipmap.arrow);
+                setSupportActionBar(toolbar);
+            }else {
+                toolbar.setNavigationIcon(R.mipmap.setting);
+                setSupportActionBar(toolbar);
+            }
             onRefresh();
         } else if (resultCode == 1003 && requestCode == REQUESECODE) {
             //onRefresh();
