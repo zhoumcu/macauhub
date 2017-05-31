@@ -9,6 +9,7 @@ import java.util.Map;
 import cn.zhiao.baselib.base.BasePresenter;
 import cn.zhiao.baselib.net.ResponseCode;
 import cn.zhiao.baselib.net.StringTransactionListener;
+import mo.macauhub.macauhub.R;
 import mo.macauhub.macauhub.bean.Contants;
 import mo.macauhub.macauhub.bean.News;
 import mo.macauhub.macauhub.interfaces.model.NewsModelImpl;
@@ -32,7 +33,7 @@ public class NewsPresenterImpl extends BasePresenter implements NewsPresenter {
 
     @Override
     public void getNewsList(final String status, String cid, String tags, String pageId, String catchnum, String lang) {
-        //newsView.showProgress(context.getResources().getString(R.string.loading));
+        newsView.showProgress(context.getResources().getString(R.string.loading));
         Map<String, String> params = new HashMap<>();
         params.put("cid",cid);
         params.put("tags",tags);
@@ -43,7 +44,7 @@ public class NewsPresenterImpl extends BasePresenter implements NewsPresenter {
             @Override
             public void onSuccess(String response) {
                 newsView.logE(response);
-                //newsView.hideProgress();
+                newsView.hideProgress();
                 if(status.equals(Contants.REFREASH)){
                     newsView.refreash(News.objectFromData(response),News.objectFromData(response).getContent());
                 }else  if(status.equals(Contants.LOADMORE)){
@@ -54,6 +55,7 @@ public class NewsPresenterImpl extends BasePresenter implements NewsPresenter {
             @Override
             public void onFailure(int errorCode) {
                 super.onFailure(errorCode);
+                newsView.hideProgress();
                 switch (errorCode){
                     case ResponseCode.ERROR_NETWORK:
                         newsView.getRecycler().showError();
