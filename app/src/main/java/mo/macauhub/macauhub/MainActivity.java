@@ -188,5 +188,4 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
             onRefresh();
         }
     }
-
 }

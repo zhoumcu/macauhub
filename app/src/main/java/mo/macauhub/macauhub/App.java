@@ -1,5 +1,7 @@
 package mo.macauhub.macauhub;
 
+import android.content.Intent;
+
 import cn.sharesdk.framework.ShareSDK;
 import cn.zhiao.baselib.app.BaseApplication;
 import mo.macauhub.macauhub.utils.TypefaceUtil;
@@ -10,12 +12,21 @@ import mo.macauhub.macauhub.utils.TypefaceUtil;
  * email：1032324589@qq.com
  */
 
-public class App extends BaseApplication{
+public class App extends BaseApplication implements Thread.UncaughtExceptionHandler{
 
     @Override
     public void onCreate() {
         super.onCreate();
         TypefaceUtil.replaceSystemDefaultFont(this,"fonts/Hind-Medium.ttf");
         ShareSDK.initSDK(this);
+    }
+
+    @Override
+    public void uncaughtException(Thread thread, Throwable throwable) {
+        System.out.println("uncaughtException");
+        System.exit(0);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
