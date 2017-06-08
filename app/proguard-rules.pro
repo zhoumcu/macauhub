@@ -89,3 +89,12 @@
 #-libraryjars libs/pinyin4j-2.5.0.jar
 -keep class net.sourceforge.pinyin4j.** { *;}
 -keep class demo.** { *;}
+#mob share
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}
+-keep class com.mob.**{*;}
+-dontwarn com.mob.**
+-dontwarn cn.sharesdk.**
+-dontwarn **.R$*
