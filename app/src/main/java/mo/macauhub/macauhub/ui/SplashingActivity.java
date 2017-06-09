@@ -25,7 +25,7 @@ public class SplashingActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
+    protected void initData() {
 
     }
 
@@ -34,4 +34,8 @@ public class SplashingActivity extends BaseActivity {
         return R.layout.aty_splash;
     }
 
+    @Override
+    public Object newP() {
+        return null;
+    }
 }

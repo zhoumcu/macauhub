@@ -1,5 +1,7 @@
 package cn.zhiao.baselib.utils;
 
+import android.util.Log;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -10,13 +12,14 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.util.Log;
+import cn.zhiao.baselib.utils.kit.Kits;
+
 /**
  * 字符串操作工具类
  * @author Ht
  *
  */
-public class MyStringUtils {
+public class StringUtils {
 	private final static Pattern EMAILER = Pattern
 			.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 	private final static ThreadLocal<SimpleDateFormat> DATE_FORMATER = new ThreadLocal<SimpleDateFormat>() {
@@ -670,7 +673,7 @@ public class MyStringUtils {
 	 */
 	public static boolean isPhoneNumberValid(String phoneNumber) {
 		phoneNumber = trimmy(phoneNumber);
-		NumberUtils mobile = new NumberUtils(phoneNumber);
+		Kits.NumberUtils mobile = new Kits.NumberUtils(phoneNumber);
 		return mobile.isLawful();
 	}
 
@@ -681,6 +684,18 @@ public class MyStringUtils {
 				.compile("^\\w+([-.]\\w+)*@\\w+([-]\\w+)*\\.(\\w+([-]\\w+)*\\.)*[a-z]{2,3}$");
 		Matcher matcher = pattern.matcher(email);
 		if (matcher.matches()) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * 判断是否为空
+	 *
+	 * @param value
+	 * @return
+	 */
+	public static boolean isExistValue(String value) {
+		if (value != null && !"".equals(value) && !"null".equals(value)) {
 			return true;
 		}
 		return false;

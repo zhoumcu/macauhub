@@ -14,8 +14,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import cn.zhiao.baselib.utils.Logger;
-import cn.zhiao.baselib.utils.NetUtils;
+import cn.zhiao.baselib.utils.kit.Kits;
+import cn.zhiao.baselib.utils.log.XLog;
 
 /**
  * 基于AsyncHttp封装的网络访问类
@@ -187,17 +187,17 @@ public class AsyncHttpNetCenter {
                      String url, RequestParams requestParams, HttpEntity entity, String contentType, AsyncHttpResponseHandler responseHandler) {
 
         // 判断网络是否可用
-        if (!NetUtils.isNetworkConnected(context)) {
+        if (!Kits.NetWork.isNetworkConnected(context)) {
             responseHandler.onFailure(ResponseCode.ERROR_NETWORK_NOT_AVAILABLE, null, null, null);
             return;
         }
 
         if (requestParams != null) {
-            Logger.i(context, "HTTP-Request,tools：Async-Http");
-            Logger.i(context, "HTTP-Request,url：" + url);
-            Logger.i(context, "HTTP-Request,mothed：" + (type == GET ? "GET" : "POST"));
-            Logger.i(context, "HTTP-Request,header：" + baseHeader.toString());
-            Logger.i(context, "HTTP-Request,params：" + requestParams.toString());
+            XLog.i("HTTP-Request,tools：Async-Http");
+            XLog.i("HTTP-Request,url：" + url);
+            XLog.i("HTTP-Request,mothed：" + (type == GET ? "GET" : "POST"));
+            XLog.i("HTTP-Request,header：" + baseHeader.toString());
+            XLog.i("HTTP-Request,params：" + requestParams.toString());
 
             // 根据传入类型调用不同请求方法,可自行扩展
             // 传入Context以便与生命周期联动
@@ -216,13 +216,12 @@ public class AsyncHttpNetCenter {
                     break;
             }
         } else if (entity != null) {
-            Logger.i(context, "HTTP-Request,tools：Async-Http");
-            Logger.i(context, "HTTP-Request,url：" + url);
-            Logger.i(context, "HTTP-Request,mothed：" + (type == GET ? "GET" : "POST"));
-            Logger.i(context, "HTTP-Request,header：" + baseHeader.toString());
-            Logger.i(context, "HTTP-Request,params：" + entity.toString());
-            Logger.i(context, "HTTP-Request,content-Type：" + contentType);
-
+            XLog.i("HTTP-Request,tools：Async-Http");
+            XLog.i("HTTP-Request,url：" + url);
+            XLog.i("HTTP-Request,mothed：" + (type == GET ? "GET" : "POST"));
+            XLog.i("HTTP-Request,header：" + baseHeader.toString());
+            XLog.i("HTTP-Request,params：" + entity.toString());
+            XLog.i("HTTP-Request,content-Type：" + contentType);
             // 根据传入类型调用不同请求方法,可自行扩展
             // 传入Context以便与生命周期联动
             switch (type) {

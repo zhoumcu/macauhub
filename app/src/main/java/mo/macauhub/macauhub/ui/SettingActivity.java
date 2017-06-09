@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import cn.zhiao.baselib.app.BaseApplication;
 import cn.zhiao.baselib.base.BaseActivity;
-import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
+import cn.zhiao.baselib.utils.SharedPrefUtils;
 import mo.macauhub.macauhub.App;
 import mo.macauhub.macauhub.R;
 import mo.macauhub.macauhub.bean.Contants;
@@ -61,9 +61,9 @@ public class SettingActivity extends BaseActivity {
     public void initView(){
         toolbar.setNavigationIcon(R.mipmap.arrow);
         setSupportActionBar(toolbar);
-        if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("zh")) {
+        if (SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()).equals("zh")) {
             rbZh.setChecked(true);
-        } else if (SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals("en")) {
+        } else if (SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()).equals("en")) {
             rbEn.setChecked(true);
         } else {
             rbLg.setChecked(true);
@@ -72,7 +72,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
+    protected void initData() {
 
     }
 
@@ -101,33 +101,33 @@ public class SettingActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rb_zh:
-                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang", "zh", getContext());
+                SharedPrefUtils.saveStrToSharedPrefrences("lang", "zh", getContext());
                 switchLanguage(Locale.CHINA);
                 initLang();
                 break;
             case R.id.rb_en:
-                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang", "en", getContext());
+                SharedPrefUtils.saveStrToSharedPrefrences("lang", "en", getContext());
                 switchLanguage(Locale.ENGLISH);
                 initLang();
                 break;
             case R.id.rb_lg:
-                SharedPrefrecesUtils.saveStrToSharedPrefrences("lang", "pt", getContext());
+                SharedPrefUtils.saveStrToSharedPrefrences("lang", "pt", getContext());
                 switchLanguage(App.locale);
                 initLang();
                 break;
             case R.id.about:
                 Bundle bundle = new Bundle();
-                bundle.putString(Contants.URL_PARAM, Contants.ABOUT+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                bundle.putString(Contants.URL_PARAM, Contants.ABOUT+ SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()));
                 gt(bundle, CommActivity.class);
                 break;
             case R.id.used:
                 Bundle bundle1 = new Bundle();
-                bundle1.putString(Contants.URL_PARAM, Contants.RULES+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                bundle1.putString(Contants.URL_PARAM, Contants.RULES+ SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()));
                 gt(bundle1, CommActivity.class);
                 break;
             case R.id.disclaimer:
                 Bundle bundle2 = new Bundle();
-                bundle2.putString(Contants.URL_PARAM, Contants.DISC+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                bundle2.putString(Contants.URL_PARAM, Contants.DISC+ SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()));
                 gt(bundle2, CommActivity.class);
                 break;
             case R.id.email:
@@ -157,7 +157,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.contantme:
                 Bundle bundle4 = new Bundle();
-                bundle4.putString(Contants.URL_PARAM, Contants.CONTACT+SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+                bundle4.putString(Contants.URL_PARAM, Contants.CONTACT+ SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()));
                 gt(bundle4, CommActivity.class);
                 break;
         }
@@ -187,5 +187,10 @@ public class SettingActivity extends BaseActivity {
 
     public void logoBack(View v){
         finish();
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

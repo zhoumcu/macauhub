@@ -14,8 +14,8 @@ import android.text.TextUtils;
 
 import java.io.File;
 
-import cn.zhiao.baselib.utils.CommonUtil;
 import cn.zhiao.baselib.utils.SdCardUtil;
+import cn.zhiao.baselib.utils.kit.Kits;
 
 /**
  * 带拍照及选择相册图片的Activity
@@ -81,7 +81,7 @@ public abstract class BaseCameraActivity extends BaseActivity {
                 if (data != null) {
                     Uri zoomImaUri = data.getData();
                     if(zoomImaUri != null){
-                        String zoomImaUriPath = CommonUtil.getRealFilePath(this, zoomImaUri);
+                        String zoomImaUriPath = Kits.File.getRealFilePath(this, zoomImaUri);
                         picSelectSuccess(zoomImaUriPath);
                     }
                 }

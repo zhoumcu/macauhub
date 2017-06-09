@@ -7,11 +7,12 @@ import butterknife.Bind;
 import cn.zhiao.baselib.base.BaseActivity;
 import mo.macauhub.macauhub.R;
 import mo.macauhub.macauhub.bean.Contants;
+import mo.macauhub.macauhub.interfaces.presenter.NewsPresenterImpl;
 
 /**
  * Created by ymn on 2017/4/12.
  */
-public class TextActivity extends BaseActivity {
+public class TextActivity extends BaseActivity<NewsPresenterImpl> {
 
     @Bind(R.id.tv_text)
     TextView tvText;
@@ -29,7 +30,7 @@ public class TextActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
+    protected void initData() {
 
     }
 
@@ -38,4 +39,8 @@ public class TextActivity extends BaseActivity {
         return R.layout.aty_text;
     }
 
+    @Override
+    public NewsPresenterImpl newP() {
+        return new NewsPresenterImpl();
+    }
 }

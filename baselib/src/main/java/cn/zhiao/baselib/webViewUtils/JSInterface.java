@@ -16,7 +16,7 @@ import cn.zhiao.baselib.app.BaseApplication;
 import cn.zhiao.baselib.app.G;
 import cn.zhiao.baselib.base.BaseActivity;
 import cn.zhiao.baselib.base.BaseFragment;
-import cn.zhiao.baselib.utils.CommonUtil;
+import cn.zhiao.baselib.utils.kit.Kits;
 
 /**
  * Created by lenovo on 2015/8/27.
@@ -186,7 +186,7 @@ public class JSInterface {
      */
     @JavascriptInterface
     public void deviceVibrate() {
-        CommonUtil.vibrate(mContext, 300);
+        Kits.HardWare.vibrate(mContext, 300);
     }
 
     /**
@@ -194,7 +194,7 @@ public class JSInterface {
      */
     @JavascriptInterface
     public void playAudio() {
-        CommonUtil.playMusic(mContext);
+        Kits.HardWare.playMusic(mContext);
     }
 
     /**

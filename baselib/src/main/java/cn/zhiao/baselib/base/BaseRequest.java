@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.zhiao.baselib.utils.CommonUtil;
+import cn.zhiao.baselib.utils.kit.Kits;
 
 /**
  * 公共请求
@@ -19,7 +19,7 @@ public class BaseRequest {
      * @return
      */
     public String getJsonParams() {
-        String jsonStr = CommonUtil.getGson().toJson(this);
+        String jsonStr = Kits.Json.getGson().toJson(this);
         if (TextUtils.isEmpty(jsonStr)) {
             jsonStr = "";
         }

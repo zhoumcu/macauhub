@@ -17,7 +17,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import java.util.List;
 
 import cn.zhiao.baselib.R;
-import cn.zhiao.baselib.utils.CommonUtil;
+import cn.zhiao.baselib.utils.kit.Kits;
 
 public abstract class BaseListFragment<M> extends BaseFragment implements IBaseListView<BaseListFragment.DataAdapter> {
 
@@ -87,8 +87,8 @@ public abstract class BaseListFragment<M> extends BaseFragment implements IBaseL
             if (mListConfig.mContainerEmptyView != null)mListView.setEmptyView(mListConfig.mContainerEmptyView);
             else mListView.setEmptyView(mListConfig.mContainerEmptyRes);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && CommonUtil.hasSoftKeys(getContext())){
-            mListView.setRecyclerPadding(0,0,0, CommonUtil.getNavigationBarHeight(getContext()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && Kits.HardWare.hasSoftKeys(getContext())){
+            mListView.setRecyclerPadding(0,0,0, Kits.ScreenUtils.getNavigationBarHeight(getContext()));
         }
     }
 

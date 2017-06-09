@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 
-import cn.zhiao.baselib.utils.CommonUtil;
+import cn.zhiao.baselib.utils.kit.Kits;
 
 public class JsonResponse extends BaseResponse {
 
@@ -73,7 +73,7 @@ public class JsonResponse extends BaseResponse {
             throw new IllegalArgumentException(
                     "In the JsonResponse, data can't be empty");
 
-        T object = CommonUtil.getGson().fromJson(getData(), clazz);
+        T object = Kits.Json.getGson().fromJson(getData(), clazz);
 
         return object;
     }
@@ -84,7 +84,7 @@ public class JsonResponse extends BaseResponse {
             throw new IllegalArgumentException(
                     "In the JsonResponse, data can't be empty");
 
-        T object = CommonUtil.getGson().fromJson(getData(), typeOfT);
+        T object = Kits.Json.getGson().fromJson(getData(), typeOfT);
 
         return object;
     }

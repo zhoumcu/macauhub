@@ -9,7 +9,7 @@ import android.view.View;
 import butterknife.Bind;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.zhiao.baselib.base.BaseActivity;
-import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
+import cn.zhiao.baselib.utils.SharedPrefUtils;
 import cn.zhiao.baselib.webViewUtils.ProgressWebView;
 import mo.macauhub.macauhub.R;
 import mo.macauhub.macauhub.bean.Contants;
@@ -35,16 +35,16 @@ public class NewsDetailsActivity extends BaseActivity {
 //        actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
         toolbar.setNavigationIcon(R.mipmap.arrow);
         setSupportActionBar(toolbar);
-        TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-        String szImei = TelephonyMgr.getDeviceId();
-        if(news!=null)
-            detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext())+"&imei="+szImei;
-        webView.loadUrl(detailUrl);
     }
 
     @Override
-    public void initPresenter() {
+    protected void initData() {
         news = (News.ContentBean) getIntent().getExtras().getSerializable("aid");
+        TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        String szImei = TelephonyMgr.getDeviceId();
+        if(news!=null)
+            detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefUtils.getStrFromSharedPrefrences("lang",getContext())+"&imei="+szImei;
+        webView.loadUrl(detailUrl);
     }
 
     @Override
@@ -101,5 +101,10 @@ public class NewsDetailsActivity extends BaseActivity {
     }
     public void logoBack(View v){
         finish();
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

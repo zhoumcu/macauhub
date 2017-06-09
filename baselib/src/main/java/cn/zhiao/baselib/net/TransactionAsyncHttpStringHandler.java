@@ -1,9 +1,10 @@
 package cn.zhiao.baselib.net;
 
-import cn.zhiao.baselib.utils.Logger;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
+
+import cn.zhiao.baselib.utils.log.XLog;
 
 public class TransactionAsyncHttpStringHandler extends TextHttpResponseHandler {
     StringTransactionListener mTransactionListener;
@@ -25,7 +26,7 @@ public class TransactionAsyncHttpStringHandler extends TextHttpResponseHandler {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-        Logger.e("*** HTTP-Response,data：" + responseString);
+        XLog.e("*** HTTP-Response,data：" + responseString);
 
         mTransactionListener.onSuccess(responseString);
     }

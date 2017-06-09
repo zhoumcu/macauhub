@@ -1,4 +1,4 @@
-package cn.zhiao.baselib.utils;
+package cn.zhiao.baselib.utils.pinyin;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -9,7 +9,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 
 import java.util.ArrayList;
 
-import cn.zhiao.baselib.utils.pinyin.HanziToPinyin;
+import cn.zhiao.baselib.utils.log.XLog;
 
 /**
  * 作者：Created by wxx on 2016/5/25.
@@ -20,7 +20,7 @@ public class Pinyin {
         String key="";
         for(HanziToPinyin.Token token:list){
             key=token.target;
-            L.i("汉字转拼音--------------->"+key);
+            XLog.i("汉字转拼音--------------->"+key);
         }
         return key;
     }
@@ -64,7 +64,7 @@ public class Pinyin {
      * @return 拼音
      */
     public static String converterToFirstSpell(String chines){
-        L.i("汉字转换位汉语拼音首字母-->chines="+chines);
+        XLog.i("汉字转换位汉语拼音首字母-->chines="+chines);
         String pinyinName = "";
         char[] nameChar = chines.toCharArray();
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();

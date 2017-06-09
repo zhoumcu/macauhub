@@ -7,7 +7,7 @@ import android.content.Context;
  *
  * @author Ht
  */
-public interface IBaseView {
+public interface IBaseView<P> {
 
     /**
      * 显示进度条
@@ -73,4 +73,6 @@ public interface IBaseView {
      * 结束当前页面
      */
     void close();
+
+    P newP();
 }

@@ -26,7 +26,6 @@ import java.util.Locale;
  */
 public class BaseApplication extends Application {
     private static BaseApplication mInstance;
-
     /**
      * 屏幕宽度
      */
@@ -39,19 +38,23 @@ public class BaseApplication extends Application {
      * 屏幕密度
      */
     public static float screenDensity;
-
+    /**
+     * 本地化语言
+     */
     public static Locale locale;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        mInstance = this;
-        //初始化fresco
-        Fresco.initialize(this);
-        initImageLoader();
-        initScreenSize();
-        initLangure();
+        /*---------通用配置---------*/
+        mInstance = this;//保存上下文
+        Fresco.initialize(this);//初始化fresco
+        initImageLoader();//初始化imageloader
+        /*-------------------------*/
+        /*------------按照实际项目需要配置-------------*/
+        initScreenSize();//初始化屏幕大小
+        initLangure();//设置语言
+        /*-------------------------------------------*/
     }
 
     /**

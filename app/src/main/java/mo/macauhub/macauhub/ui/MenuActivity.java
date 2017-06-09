@@ -70,7 +70,7 @@ public class MenuActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
+    protected void initData() {
 
     }
 
@@ -149,5 +149,10 @@ public class MenuActivity extends BaseActivity {
     }
     public void logoBack(View v){
         finish();
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

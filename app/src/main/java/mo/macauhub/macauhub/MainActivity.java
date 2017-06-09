@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.Bind;
 import cn.zhiao.baselib.base.BaseListActivity;
 import cn.zhiao.baselib.base.ListConfig;
-import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
+import cn.zhiao.baselib.utils.SharedPrefUtils;
 import mo.macauhub.macauhub.bean.Contants;
 import mo.macauhub.macauhub.bean.News;
 import mo.macauhub.macauhub.interfaces.presenter.NewsPresenterImpl;
@@ -32,7 +32,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     private static final int REQUESECODE = 1000;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    private NewsPresenterImpl presenter;
+//    private NewsPresenterImpl presenter;
     private List<News.ContentBean> newses = new ArrayList<>();
     private String tags = "0";
     private int pageId = 1;
@@ -73,9 +73,14 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
                 .setErrorTouchToResumeAble(true);
     }
 
+//    @Override
+//    public void initListPresenter() {
+////        presenter = new NewsPresenterImpl(getContext(), this);
+//
+//    }
+
     @Override
-    public void initListPresenter() {
-        presenter = new NewsPresenterImpl(getContext(), this);
+    protected void initData() {
         onRefresh();
     }
 
@@ -93,8 +98,8 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()).equals(SharedPrefrecesUtils.getStrFromSharedPrefrences("currlang", getContext()))) {
-            SharedPrefrecesUtils.saveStrToSharedPrefrences("currlang", SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()), getContext());
+        if (!SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()).equals(SharedPrefUtils.getStrFromSharedPrefrences("currlang", getContext()))) {
+            SharedPrefUtils.saveStrToSharedPrefrences("currlang", SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()), getContext());
             finish();
             gt(MainActivity.class);
         }
@@ -142,7 +147,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
 
     @Override
     public void onRefresh() {
-        presenter.getNewsList(Contants.REFREASH, "998", tags, "1", Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+        getP().getNewsList(Contants.REFREASH, "998", tags, "1", Contants.pageSize, SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()));
     }
 
     @Override
@@ -154,7 +159,7 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
     public void onLoadMore() {
         pageId++;
         if (pageId <= news.getTotpage()) {
-            presenter.getNewsList(Contants.LOADMORE, "998", tags, String.valueOf(pageId), Contants.pageSize, SharedPrefrecesUtils.getStrFromSharedPrefrences("lang", getContext()));
+            getP().getNewsList(Contants.LOADMORE, "998", tags, String.valueOf(pageId), Contants.pageSize, SharedPrefUtils.getStrFromSharedPrefrences("lang", getContext()));
         } else {
             getAdapter().stopMore();
             pageId = 1;
@@ -187,5 +192,10 @@ public class MainActivity extends BaseListActivity<News.ContentBean> implements 
             setSupportActionBar(toolbar);
             onRefresh();
         }
+    }
+
+    @Override
+    public NewsPresenterImpl newP() {
+        return new NewsPresenterImpl();
     }
 }

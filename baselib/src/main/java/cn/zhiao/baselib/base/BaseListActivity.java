@@ -15,7 +15,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import java.util.List;
 
 import cn.zhiao.baselib.R;
-import cn.zhiao.baselib.utils.CommonUtil;
+import cn.zhiao.baselib.utils.kit.Kits;
 
 public  abstract class BaseListActivity<M> extends BaseActivity implements IBaseListView<BaseListActivity.DataAdapter>{
 
@@ -38,16 +38,13 @@ public  abstract class BaseListActivity<M> extends BaseActivity implements IBase
         else mListView.setAdapter(mAdapter = getAdapter());
         initAdapter();
         initListView();
-        initListPresenter();
+//        initListPresenter();
     }
     @Override
     public void initView() {
 
     }
-    @Override
-    public void initPresenter() {
 
-    }
     /**
      * 初始化控件
      */
@@ -56,7 +53,7 @@ public  abstract class BaseListActivity<M> extends BaseActivity implements IBase
     /**
      * 初始化控制中心
      */
-    public abstract void initListPresenter();
+//    public abstract void initListPresenter();
 
     @Override
     public void stopRefresh(){
@@ -111,8 +108,8 @@ public  abstract class BaseListActivity<M> extends BaseActivity implements IBase
             if (mListConfig.mContainerEmptyView != null)mListView.setEmptyView(mListConfig.mContainerEmptyView);
             else mListView.setEmptyView(mListConfig.mContainerEmptyRes);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && CommonUtil.hasSoftKeys(this)){
-            mListView.setRecyclerPadding(0,0,0, CommonUtil.getNavigationBarHeight(this));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mListConfig.mPaddingNavigationBarAble && Kits.HardWare.hasSoftKeys(this)){
+            mListView.setRecyclerPadding(0,0,0, Kits.ScreenUtils.getNavigationBarHeight(this));
         }
     }
 

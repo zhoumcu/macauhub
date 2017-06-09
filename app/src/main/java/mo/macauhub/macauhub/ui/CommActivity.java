@@ -32,7 +32,7 @@ public class CommActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
+    protected void initData() {
         detailUrl = (String) getIntent().getExtras().getString(Contants.URL_PARAM);
     }
 
@@ -90,5 +90,10 @@ public class CommActivity extends BaseActivity {
 //    }
     public void logoBack(View v){
         finish();
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

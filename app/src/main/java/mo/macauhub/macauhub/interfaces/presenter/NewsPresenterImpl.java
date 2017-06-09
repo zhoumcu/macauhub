@@ -9,31 +9,29 @@ import java.util.Map;
 import cn.zhiao.baselib.base.BasePresenter;
 import cn.zhiao.baselib.net.ResponseCode;
 import cn.zhiao.baselib.net.StringTransactionListener;
+import mo.macauhub.macauhub.MainActivity;
 import mo.macauhub.macauhub.R;
 import mo.macauhub.macauhub.bean.Contants;
 import mo.macauhub.macauhub.bean.News;
 import mo.macauhub.macauhub.interfaces.model.NewsModelImpl;
-import mo.macauhub.macauhub.interfaces.view.NewsView;
 import mo.macauhub.macauhub.presenter.interfaces.NewsPresenter;
 
 /**
 * Created by Administrator on 2017/04/13
 */
 
-public class NewsPresenterImpl extends BasePresenter implements NewsPresenter {
+public class NewsPresenterImpl extends BasePresenter<MainActivity> implements NewsPresenter {
     private NewsModelImpl model;
     private Context context;
-    private NewsView newsView;
 
-    public NewsPresenterImpl(Context context, NewsView newsView) {
-        this.context = context;
-        this.newsView = newsView;
+    public NewsPresenterImpl() {
+        this.context = getV().getContext();
         model = new NewsModelImpl(context);
     }
 
     @Override
     public void getNewsList(final String status, String cid, String tags, String pageId, String catchnum, String lang) {
-        newsView.showProgress(context.getResources().getString(R.string.loading));
+        getV().showProgress(context.getResources().getString(R.string.loading));
         Map<String, String> params = new HashMap<>();
         params.put("cid",cid);
         params.put("tags",tags);
@@ -43,25 +41,25 @@ public class NewsPresenterImpl extends BasePresenter implements NewsPresenter {
         model.get(context, Contants.NEWS, params, new StringTransactionListener() {
             @Override
             public void onSuccess(String response) {
-                newsView.logE(response);
-                newsView.hideProgress();
+                getV().logE(response);
+                getV().hideProgress();
                 if(status.equals(Contants.REFREASH)){
-                    newsView.refreash(News.objectFromData(response),News.objectFromData(response).getContent());
+                    getV().refreash(News.objectFromData(response),News.objectFromData(response).getContent());
                 }else  if(status.equals(Contants.LOADMORE)){
-                   newsView.loadMore(News.objectFromData(response),News.objectFromData(response).getContent());
+                    getV().loadMore(News.objectFromData(response),News.objectFromData(response).getContent());
                 }
             }
 
             @Override
             public void onFailure(int errorCode) {
                 super.onFailure(errorCode);
-                newsView.hideProgress();
+                getV().hideProgress();
                 switch (errorCode){
                     case ResponseCode.ERROR_NETWORK:
-                        newsView.getRecycler().showError();
+                        getV().getRecycler().showError();
                         break;
                     case ResponseCode.ERROR_NETWORK_NOT_AVAILABLE:
-                        newsView.getRecycler().showError();
+                        getV().getRecycler().showError();
                         break;
                 }
             }

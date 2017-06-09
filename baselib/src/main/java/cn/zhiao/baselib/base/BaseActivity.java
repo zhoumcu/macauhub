@@ -30,15 +30,16 @@ import butterknife.ButterKnife;
 import cn.zhiao.baselib.app.BaseApplication;
 import cn.zhiao.baselib.custom.CustomConfirmDialog;
 import cn.zhiao.baselib.net.AsyncHttpNetCenter;
-import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
+import cn.zhiao.baselib.utils.SharedPrefUtils;
 
-public  abstract class BaseActivity extends AppCompatActivity implements IBaseView {
+public  abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements IBaseView<P> {
     public static final String MY_TAG = "BaseActivity";
 
     private ProgressDialog mProgressDialog;
     FragmentManager fragmentManager;
     public Toolbar toolbar;
     private ActionBar actionBar;
+    private P p;
 
     /**
      * 初始化控件
@@ -48,7 +49,11 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
     /**
      * 初始化控制中心
      */
-    public abstract void initPresenter();
+//    public abstract void initPresenter();
+
+    protected abstract void initData();
+
+    protected abstract @LayoutRes int getLayoutRes();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +65,20 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
         setContentView(getLayoutRes());
         // 初始化View注入
         ButterKnife.bind(this);
-        initPresenter();
+//        initPresenter();
         initView();
+        initData();
     }
 
-    protected abstract @LayoutRes int getLayoutRes();
+    protected P getP() {
+        if (p == null) {
+            p = newP();
+            if (p != null) {
+                p.attachV(this);
+            }
+        }
+        return p;
+    }
 
     @Override
     public void finish() {
@@ -370,9 +384,9 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
 
     public void switchLanguage() {
         Locale locale;
-        if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("zh")){
+        if(SharedPrefUtils.getStrFromSharedPrefrences("lang",getContext()).equals("zh")){
             locale = Locale.CHINA;
-        }else if(SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext()).equals("en")){
+        }else if(SharedPrefUtils.getStrFromSharedPrefrences("lang",getContext()).equals("en")){
             locale = Locale.ENGLISH;
         }else {
             locale = BaseApplication.locale;

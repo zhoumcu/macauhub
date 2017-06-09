@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import cn.zhiao.baselib.R;
-import cn.zhiao.baselib.utils.CommonUtil;
+import cn.zhiao.baselib.utils.kit.Kits;
 
 /**
  * 公共的dialog模板
@@ -89,7 +89,7 @@ public class CommonDialog extends Dialog implements
 
 	public void setmessage(String text) {
 		
-		if(CommonUtil.isExistValue(text)&&text.length()>10){
+		if(Kits.Empty.check(text)&&text.length()>10){
 			contentText.setGravity(Gravity.LEFT);
 		}else{
 			contentText.setGravity(Gravity.CENTER);

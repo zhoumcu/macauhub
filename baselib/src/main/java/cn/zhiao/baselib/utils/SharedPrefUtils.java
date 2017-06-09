@@ -16,7 +16,7 @@ import java.io.StreamCorruptedException;
  * SharedPrefrece工具类
  * Created by ZengXiaoPing on 2015/8/24.
  */
-public class SharedPrefrecesUtils {
+public class SharedPrefUtils {
 
     public static final String SPFILENAME = "cheyupinShopping";
 
@@ -70,22 +70,21 @@ public class SharedPrefrecesUtils {
         edit.commit();
     }
 
-//    //清理Boolean类型
-//    public static void clearBooleanToSharedPrefrences(String key, Context context) {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_APPEND);
-//        SharedPreferences.Editor edit = sharedPreferences.edit();
-//        edit.clear();
-//    }
-//
-//    //清理Int类型
-//    public static void clearIntToSharedPrefrences(String key, Context context) {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_APPEND);
-//        SharedPreferences.Editor edit = sharedPreferences.edit();
-//        edit.clear();
-//    }
+    //清理Boolean类型
+    public static void clearBooleanToSharedPrefrences(String key, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_APPEND);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.clear();
+    }
+
+    //清理Int类型
+    public static void clearIntToSharedPrefrences(String key, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key, Context.MODE_APPEND);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.clear();
+    }
     /**
      * desc:保存对象
-
      * @param context
      * @param key
      * @param obj 要保存的对象，只能保存实现了serializable的对象

@@ -168,6 +168,54 @@ public class SdCardUtil {
         return sd;
     }
 
+    /**
+     * 判断手机是否有SD卡。
+     *
+     * @return 有SD卡返回true，没有返回false。
+     */
+    public static boolean hasSDCard() {
+
+        return Environment.MEDIA_MOUNTED.equals(Environment
+                .getExternalStorageState());
+    }
+
+
+    public static String getTFCardPath() {
+        try {
+            Runtime runtime = Runtime.getRuntime();
+            Process proc = runtime.exec("mount");
+            InputStream is = proc.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            String line;
+            String mount = new String();
+            BufferedReader br = new BufferedReader(isr);
+            while ((line = br.readLine()) != null) {
+                if (line.contains("secure")) continue;
+                if (line.contains("asec")) continue;
+
+                if (line.contains("fat")) {
+                    String columns[] = line.split(" ");
+                    if (columns != null && columns.length > 1) {
+                        mount = mount.concat("*" + columns[1] + "\n");
+                    }
+                } else if (line.contains("fuse")) {
+                    String columns[] = line.split(" ");
+                    if (columns != null && columns.length > 1) {
+                        mount = mount.concat(columns[1] + "\n");
+                    }
+                }
+            }
+            return mount;
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     /**
      * see more {@link StatFs}
