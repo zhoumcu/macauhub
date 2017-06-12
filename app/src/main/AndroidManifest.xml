@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="mo.macauhub.macauhub">
+    package="com.macauhub.macauhub">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -10,27 +10,27 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".App"
+        android:name="com.macauhub.macauhub.App"
         android:theme="@style/NoTitleBar">
-        <activity android:name=".ui.SplashingActivity">
+        <activity android:name="com.macauhub.macauhub.ui.SplashingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name="com.macauhub.macauhub.MainActivity"
             android:label=""/>
-        <activity android:name=".ui.MenuActivity"
+        <activity android:name="com.macauhub.macauhub.ui.MenuActivity"
             android:label=""/>
-        <activity android:name=".ui.SettingActivity"
+        <activity android:name="com.macauhub.macauhub.ui.SettingActivity"
             android:label=""/>
-        <activity android:name=".ui.CommActivity"
+        <activity android:name="com.macauhub.macauhub.ui.CommActivity"
             android:label=""/>
-        <activity android:name=".ui.NewsDetailsActivity"
+        <activity android:name="com.macauhub.macauhub.ui.NewsDetailsActivity"
             android:label=""/>
-        <activity android:name=".ui.TextActivity"/>
-        <activity android:name=".ui.ImageAcitivity"
+        <activity android:name="com.macauhub.macauhub.ui.TextActivity"/>
+        <activity android:name="com.macauhub.macauhub.ui.ImageAcitivity"
             android:theme="@style/Transparent"/>
         <activity
             android:name="com.mob.tools.MobUIShell"

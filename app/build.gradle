@@ -9,17 +9,17 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "mo.macauhub.macauhub"
+        applicationId "com.macauhub.macauhub"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
     }
     signingConfigs {
         release {
             keyAlias 'zhou'
             keyPassword '080502101'
-            storeFile file('F:/zhou/androids.jks')
+            storeFile file('C:/Users/ymn/Desktop/androids.jks')
             storePassword '080502101'
         }
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <mo.macauhub.macauhub.utils.SmoothImageView
+    <com.macauhub.macauhub.utils.SmoothImageView
         android:id="@+id/img_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
