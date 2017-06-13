@@ -1,10 +1,13 @@
 package mo.macauhub.macauhub.ui;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -14,6 +17,10 @@ import cn.zhiao.baselib.webViewUtils.ProgressWebView;
 import mo.macauhub.macauhub.R;
 import mo.macauhub.macauhub.bean.Contants;
 import mo.macauhub.macauhub.bean.News;
+import rebus.permissionutils.AskAgainCallback;
+import rebus.permissionutils.FullCallback;
+import rebus.permissionutils.PermissionEnum;
+import rebus.permissionutils.PermissionManager;
 
 /**
  * Created by ymn on 2017/4/12.
@@ -35,11 +42,26 @@ public class NewsDetailsActivity extends BaseActivity {
 //        actionBar.setHomeAsUpIndicator(R.mipmap.arrow);
         toolbar.setNavigationIcon(R.mipmap.arrow);
         setSupportActionBar(toolbar);
-        TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-        String szImei = TelephonyMgr.getDeviceId();
-        if(news!=null)
-            detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext())+"&imei="+szImei;
-        webView.loadUrl(detailUrl);
+        PermissionManager.Builder()
+                .permission(PermissionEnum.READ_PHONE_STATE)
+                .askAgain(true)
+                .askAgainCallback(new AskAgainCallback() {
+                    @Override
+                    public void showRequestPermission(UserResponse response) {
+                        showDialog(response);
+                    }
+                })
+                .callback(new FullCallback() {
+                    @Override
+                    public void result(ArrayList<PermissionEnum> permissionsGranted, ArrayList<PermissionEnum> permissionsDenied, ArrayList<PermissionEnum> permissionsDeniedForever, ArrayList<PermissionEnum> permissionsAsked) {
+                        TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+                        String szImei = TelephonyMgr.getDeviceId();
+                        if(news!=null)
+                            detailUrl = Contants.DETAILS+"aid="+news.getAID()+"&lang="+ SharedPrefrecesUtils.getStrFromSharedPrefrences("lang",getContext())+"&imei="+szImei;
+                        webView.loadUrl(detailUrl);
+                    }
+                })
+                .ask(this);
     }
 
     @Override
@@ -73,6 +95,11 @@ public class NewsDetailsActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handleResult(this, requestCode, permissions, grantResults);
     }
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();

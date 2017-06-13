@@ -48,4 +48,6 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:3.1.1'
     //图片选择器
     compile 'com.foamtrace:photopicker:1.0'
+    //动态权限申请
+    compile 'rebus:permission-utils:2.0.0-BETA-1'
 }

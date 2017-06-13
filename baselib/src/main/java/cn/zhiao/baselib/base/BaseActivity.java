@@ -31,6 +31,7 @@ import cn.zhiao.baselib.app.BaseApplication;
 import cn.zhiao.baselib.custom.CustomConfirmDialog;
 import cn.zhiao.baselib.net.AsyncHttpNetCenter;
 import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
+import rebus.permissionutils.AskAgainCallback;
 
 public  abstract class BaseActivity extends AppCompatActivity implements IBaseView {
     public static final String MY_TAG = "BaseActivity";
@@ -119,7 +120,25 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
         CustomConfirmDialog confirmDialog = new CustomConfirmDialog(this, title, positiveListener);
         confirmDialog.show();
     }
-
+    public void showDialog(final AskAgainCallback.UserResponse response) {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission needed")
+                .setMessage("This app realy need to use this permission, you wont to authorize it?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        response.result(true);
+                    }
+                })
+                .setNegativeButton("NOT NOW", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        response.result(false);
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
     @Override
     public void showProgress(boolean flag, String message) {
         if (mProgressDialog == null) {
