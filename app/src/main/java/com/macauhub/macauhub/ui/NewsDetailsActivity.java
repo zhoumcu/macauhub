@@ -104,6 +104,7 @@ public class NewsDetailsActivity extends BaseActivity {
     }
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
+        oks.setSilent(true);
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
