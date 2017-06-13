@@ -27,10 +27,12 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import butterknife.ButterKnife;
+import cn.zhiao.baselib.R;
 import cn.zhiao.baselib.app.BaseApplication;
 import cn.zhiao.baselib.custom.CustomConfirmDialog;
 import cn.zhiao.baselib.net.AsyncHttpNetCenter;
 import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
+import rebus.permissionutils.AskAgainCallback;
 
 public  abstract class BaseActivity extends AppCompatActivity implements IBaseView {
     public static final String MY_TAG = "BaseActivity";
@@ -132,7 +134,25 @@ public  abstract class BaseActivity extends AppCompatActivity implements IBaseVi
 
         mProgressDialog.show();
     }
-
+    public void showDialog(final AskAgainCallback.UserResponse response) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.title)
+                .setMessage(R.string.message)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        response.result(true);
+                    }
+                })
+                .setNegativeButton(R.string.nolow, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        response.result(false);
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
     @Override
     public void showProgress(String message) {
         showProgress(true, message);

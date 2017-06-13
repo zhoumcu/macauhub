@@ -7,5 +7,8 @@
 	<string name="neterror">Erro de rede, clique em "retry".</string>
 	<string name="netfaile">Erro de rede</string>
 	<string name="nodata">Não há dados</string>
-
+	<string name="title">Permission needed</string>
+	<string name="message">This app realy need to use this permission, you wont to authorize it?</string>
+	<string name="ok">OK</string>
+	<string name="nolow">NOT NOW</string>
 </resources>

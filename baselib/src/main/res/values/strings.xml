@@ -5,4 +5,8 @@
     <string name="neterror">网络错误,点击重试</string>
     <string name="netfaile">网络错误</string>
     <string name="nodata">暂无数据</string>
+    <string name="title">权限申请</string>
+    <string name="message">该应用需要申请该权限，是否授权？</string>
+    <string name="ok">授权</string>
+    <string name="nolow">不授权</string>
 </resources>
