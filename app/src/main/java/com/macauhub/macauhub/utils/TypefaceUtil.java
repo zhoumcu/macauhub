@@ -110,8 +110,7 @@ public class TypefaceUtil {
      * @param context
      * @return 当前activity布局的根节点
      */
-    public static View getRootView(Activity context)
-    {
+    public static View getRootView(Activity context) {
         return ((ViewGroup)context.findViewById(android.R.id.content)).getChildAt(0);
     }
 
