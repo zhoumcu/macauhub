@@ -1,5 +1,7 @@
 package com.macauhub.macauhub.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
@@ -14,8 +16,11 @@ import com.macauhub.macauhub.bean.News;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import cn.sharesdk.framework.Platform;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import cn.zhiao.baselib.base.BaseActivity;
+import cn.zhiao.baselib.utils.BitmapUtil;
 import cn.zhiao.baselib.utils.SharedPrefrecesUtils;
 import cn.zhiao.baselib.webViewUtils.ProgressWebView;
 import rebus.permissionutils.AskAgainCallback;
@@ -114,7 +119,32 @@ public class NewsDetailsActivity extends BaseActivity {
         // text是分享文本，所有平台都需要这个字段
         oks.setText(news.getAdesc());
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
-        oks.setImageUrl(news.getThemeImg());
+        if(news.getThemeImg().contains("https://")||news.getThemeImg().contains("http://")){
+            oks.setImageUrl(news.getThemeImg());
+        }else {
+            oks.setImageUrl(BitmapUtil.drawableToByte(getResources().getDrawable(R.mipmap.logo)));
+        }
+        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+            @Override
+            public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
+                if("Wechat".equals(platform.getName())){
+                    if(news.getThemeImg().contains("https://")||news.getThemeImg().contains("http://")){
+                        paramsToShare.setImageUrl(news.getThemeImg());
+                    }else {
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.logo);
+                        paramsToShare.setImageData(bitmap);
+                    }
+                }
+                if("WechatMoments".equals(platform.getName())){
+                    if(news.getThemeImg().contains("https://")||news.getThemeImg().contains("http://")){
+                        paramsToShare.setImageUrl(news.getThemeImg());
+                    }else {
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.logo);
+                        paramsToShare.setImageData(bitmap);
+                    }
+                }
+            }
+        });
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
@@ -125,6 +155,7 @@ public class NewsDetailsActivity extends BaseActivity {
         oks.setSite(getResources().getString(R.string.app_name));
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl(detailUrl);
+
         // 启动分享GUI
         oks.show(this);
     }

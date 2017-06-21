@@ -22,6 +22,7 @@ public class App extends BaseApplication implements Thread.UncaughtExceptionHand
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        Thread.setDefaultUncaughtExceptionHandler(this);
         TypefaceUtil.replaceSystemDefaultFont(this,"fonts/Hind-Medium.ttf");
         ShareSDK.initSDK(this);
     }
@@ -33,10 +34,10 @@ public class App extends BaseApplication implements Thread.UncaughtExceptionHand
             @Override
             public void run() {
                 System.out.println("uncaughtException");
-                System.exit(0);
                 Intent intent = new Intent(mContext, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                android.os.Process.killProcess(android.os.Process.myPid());
             }
         }).start();
     }

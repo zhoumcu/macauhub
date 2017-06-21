@@ -13,7 +13,7 @@ public class Contants {
 
     public static final String APP_CACAHE_DIRNAME = "/webcache";
 
-    public static final String URL = "http://m.macaomagazine.net/";
+    public static final String URL = "http://m.macauhub.com.mo/";
     public static final String NEWS = URL+"api/article.php";
     public static final String DETAILS = URL+"api/article_detail.php?";
     public static final String ABOUT = URL+"sp.php?p=aboutus&lang=";
